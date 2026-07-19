@@ -3,807 +3,2297 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ai Là Triệu Phú - Triết học Mác-Lênin</title>
-<meta name="description" content="Trò chơi Ai Là Triệu Phú chủ đề Triết học Mác-Lênin (MLN121). Kiểm tra kiến thức triết học của bạn qua 15 câu hỏi!">
+<title>Ai Là Triệu Phú - Sổ Tay Kiến Thức & Game MLN122</title>
+<meta name="description" content="Sổ tay kiến thức tương tác & Trò chơi Ai Là Triệu Phú chủ đề Kinh tế chính trị Mác - Lênin & Kinh tế Việt Nam.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💎</text></svg>">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+
 <style>
   :root {
-    --navy-1: #010b2e;
-    --navy-2: #062372;
-    --navy-3: #0a3aa8;
-    --gold: #f5c542;
-    --gold-dark: #b8860b;
-    --white: #f4f7ff;
-    --orange: #ff9800;
-    --green: #2ecc71;
-    --red: #e74c3c;
+    --navy-0: #020617;
+    --navy-1: #060e2e;
+    --navy-2: #0b1947;
+    --navy-3: #12286a;
+    --gold-1: #fff3c4;
+    --gold-2: #ffd700;
+    --gold-3: #d4af37;
+    --gold-4: #996515;
+    --teal-1: #ccfbf1;
+    --teal-2: #2dd4bf;
+    --teal-3: #0d9488;
+    --red-1: #f87171;
+    --red-2: #ef4444;
+    --green-1: #4ade80;
+    --green-2: #22c55e;
+    --white: #f8fafc;
+    --slate-400: #94a3b8;
+    --slate-300: #cbd5e1;
+    
+    --font-heading: 'Outfit', sans-serif;
+    --font-body: 'Plus Jakarta Sans', sans-serif;
+    
+    --shadow-gold: 0 0 25px rgba(255, 215, 0, 0.35);
+    --shadow-teal: 0 0 25px rgba(45, 212, 191, 0.35);
+    --glass-bg: rgba(11, 25, 71, 0.75);
+    --glass-border: rgba(255, 215, 0, 0.25);
   }
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html, body { height: 100%; }
+  html { scroll-behavior: smooth; }
+  
   body {
-    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    font-family: var(--font-body);
     color: var(--white);
-    background: radial-gradient(ellipse at 50% 30%, var(--navy-3) 0%, var(--navy-2) 40%, var(--navy-1) 100%) fixed;
+    background: radial-gradient(ellipse at 50% 20%, #0d225c 0%, #050d27 50%, #020617 100%) fixed;
+    min-height: 100vh;
     overflow-x: hidden;
+    line-height: 1.6;
   }
-  /* ===== Spotlight animation backdrop ===== */
-  .spotlights {
-    position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: .35;
+
+  /* Dynamic Studio Background Animation */
+  .studio-backdrop {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
   }
-  .spotlights::before, .spotlights::after {
-    content: ""; position: absolute; top: -30%; width: 55vw; height: 160%;
-    background: linear-gradient(180deg, rgba(120,170,255,.28), transparent 70%);
+  .spotlight-beam {
+    position: absolute;
+    top: -40%;
+    width: 60vw;
+    height: 180%;
+    background: linear-gradient(180deg, rgba(59, 130, 246, 0.15), rgba(234, 179, 8, 0.05) 50%, transparent);
     transform-origin: top center;
-    animation: sweep 9s ease-in-out infinite alternate;
+    filter: blur(30px);
+    animation: spotlightSweep 12s ease-in-out infinite alternate;
   }
-  .spotlights::before { left: 8%; transform: rotate(18deg); }
-  .spotlights::after  { right: 8%; transform: rotate(-18deg); animation-delay: -4.5s; }
-  @keyframes sweep {
-    from { transform: rotate(14deg); }
-    to   { transform: rotate(-14deg); }
+  .spotlight-beam.left { left: 5%; transform: rotate(22deg); }
+  .spotlight-beam.right { right: 5%; transform: rotate(-22deg); animation-delay: -6s; }
+  
+  @keyframes spotlightSweep {
+    0% { transform: rotate(18deg) scaleX(0.9); }
+    100% { transform: rotate(-18deg) scaleX(1.1); }
   }
-  .screen { position: relative; z-index: 1; min-height: 100vh; display: none; }
-  .screen.active { display: flex; flex-direction: column; align-items: center; }
 
-  /* ================= START / INTRO ================= */
-  #screen-start { justify-content: center; text-align: center; padding: 24px; }
-  .logo-ring {
-    width: 200px; height: 200px; border-radius: 50%;
-    background: radial-gradient(circle at 50% 40%, #14337c, #04102e 75%);
-    border: 6px solid var(--gold);
-    box-shadow: 0 0 45px rgba(245,197,66,.55), inset 0 0 35px rgba(245,197,66,.25);
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    animation: pulse 2.6s ease-in-out infinite;
-    margin-bottom: 28px;
+  /* Grid overlay effect */
+  .grid-pattern {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      radial-gradient(rgba(255, 215, 0, 0.08) 1px, transparent 1px),
+      radial-gradient(rgba(59, 130, 246, 0.08) 1px, transparent 1px);
+    background-size: 32px 32px;
+    background-position: 0 0, 16px 16px;
+    opacity: 0.6;
   }
-  @keyframes pulse {
-    0%,100% { box-shadow: 0 0 30px rgba(245,197,66,.4), inset 0 0 30px rgba(245,197,66,.2); }
-    50%     { box-shadow: 0 0 65px rgba(245,197,66,.75), inset 0 0 45px rgba(245,197,66,.35); }
-  }
-  .logo-ring .money { font-size: 52px; }
-  .logo-ring .brand { font-size: 15px; font-weight: 800; letter-spacing: 2px; color: var(--gold); margin-top: 6px; text-transform: uppercase; }
-  h1.title {
-    font-size: clamp(30px, 6vw, 56px); font-weight: 900; letter-spacing: 1px;
-    background: linear-gradient(180deg, #fff2c4, var(--gold) 55%, var(--gold-dark));
-    -webkit-background-clip: text; background-clip: text; color: transparent;
-    text-shadow: 0 4px 24px rgba(245,197,66,.25);
-  }
-  .subtitle { font-size: clamp(16px, 2.6vw, 22px); margin-top: 10px; color: #cfe0ff; font-weight: 600; }
-  .subtitle b { color: var(--gold); }
-  .course-tag {
-    display: inline-block; margin-top: 14px; padding: 6px 18px; border-radius: 999px;
-    border: 1px solid rgba(245,197,66,.6); color: var(--gold); font-weight: 700; font-size: 14px;
-    background: rgba(245,197,66,.08); letter-spacing: 1.5px;
-  }
-  .btn {
-    cursor: pointer; border: 2px solid var(--gold); border-radius: 999px;
-    background: linear-gradient(180deg, #123a8f, #071c52);
-    color: var(--white); font-size: 18px; font-weight: 700; padding: 14px 44px;
-    transition: transform .15s, box-shadow .15s, background .2s;
-    box-shadow: 0 4px 18px rgba(0,0,0,.45);
-  }
-  .btn:hover { transform: translateY(-2px) scale(1.03); box-shadow: 0 0 26px rgba(245,197,66,.55); background: linear-gradient(180deg, #1a4cb5, #0a2668); }
-  .btn:active { transform: scale(.97); }
-  .btn.gold { background: linear-gradient(180deg, #ffdf80, var(--gold) 45%, #c8951a); color: #2a1c00; border-color: #fff0c0; }
-  .btn.gold:hover { background: linear-gradient(180deg, #ffe9a3, #ffce4f 45%, #d8a52a); }
-  .btn.ghost { background: transparent; border-color: rgba(255,255,255,.35); font-size: 15px; padding: 10px 26px; }
-  .btn.ghost:hover { box-shadow: none; border-color: var(--gold); }
-  .start-actions { margin-top: 40px; display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
 
-  /* ---- Intro slides ---- */
-  #screen-intro { justify-content: center; padding: 30px 18px; }
-  .intro-card {
-    width: min(860px, 96vw);
-    background: linear-gradient(180deg, rgba(10,35,105,.92), rgba(3,12,45,.95));
-    border: 2px solid rgba(245,197,66,.65); border-radius: 22px;
-    box-shadow: 0 10px 60px rgba(0,0,0,.6), 0 0 40px rgba(245,197,66,.12);
-    padding: clamp(24px, 4vw, 48px);
-    animation: cardIn .5s ease both;
+  /* Header Navigation */
+  .app-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(2, 6, 23, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+    padding: 12px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
-  @keyframes cardIn { from { opacity: 0; transform: translateY(26px) scale(.97); } to { opacity: 1; transform: none; } }
-  .intro-step { font-size: 13px; letter-spacing: 3px; color: var(--gold); font-weight: 800; text-transform: uppercase; }
-  .intro-card h2 { font-size: clamp(24px, 4vw, 34px); margin: 10px 0 18px; color: #ffe9a3; }
-  .intro-card p { font-size: clamp(15px, 2.2vw, 17.5px); line-height: 1.75; color: #dbe6ff; margin-bottom: 14px; text-align: justify; }
-  .intro-card p b { color: var(--gold); }
-  .intro-quote {
-    margin: 18px 0; padding: 16px 22px; border-left: 4px solid var(--gold);
-    background: rgba(245,197,66,.07); border-radius: 0 12px 12px 0;
-    font-style: italic; color: #ffedb8; font-size: clamp(15px, 2.2vw, 17px); line-height: 1.7;
+  .brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    text-decoration: none;
   }
-  .intro-quote span { display: block; margin-top: 8px; font-style: normal; font-size: 14px; color: #9fb4e8; }
-  .rule-list { list-style: none; margin: 6px 0 14px; }
-  .rule-list li {
-    display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px;
-    font-size: clamp(15px, 2.2vw, 17px); line-height: 1.6; color: #dbe6ff;
+  .brand-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #ffe082, #d4af37);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+    border: 2px solid #fff;
   }
-  .rule-list .ic { flex: 0 0 auto; width: 34px; height: 34px; border-radius: 50%; background: rgba(245,197,66,.15); border: 1px solid rgba(245,197,66,.5); display: flex; align-items: center; justify-content: center; font-size: 17px; }
-  .intro-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 26px; gap: 12px; flex-wrap: wrap; }
-  .dots { display: flex; gap: 10px; }
-  .dots i { width: 11px; height: 11px; border-radius: 50%; background: rgba(255,255,255,.25); transition: .25s; }
-  .dots i.on { background: var(--gold); box-shadow: 0 0 10px rgba(245,197,66,.8); transform: scale(1.2); }
+  .brand-text {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+    background: linear-gradient(135deg, #fff, var(--gold-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .brand-tag {
+    font-size: 11px;
+    color: var(--slate-400);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: block;
+    font-weight: 600;
+  }
 
-  /* ================= GAME ================= */
-  #screen-game { padding: 14px; }
-  .game-wrap { width: min(1180px, 100%); display: grid; grid-template-columns: 1fr 250px; gap: 18px; flex: 1; }
-  .stage { display: flex; flex-direction: column; }
-  .topbar { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
-  .q-counter { font-weight: 800; color: var(--gold); font-size: 17px; letter-spacing: .5px; }
-  .lifelines { display: flex; gap: 10px; }
-  .lifeline {
-    width: 62px; height: 44px; border-radius: 999px; cursor: pointer;
-    border: 2px solid var(--gold); background: radial-gradient(circle at 50% 35%, #1a4cb5, #071c52);
-    color: var(--white); font-weight: 800; font-size: 14px;
-    display: flex; align-items: center; justify-content: center;
-    transition: .2s; position: relative;
+  .nav-tools {
+    display: flex;
+    align-items: center;
+    gap: 14px;
   }
-  .lifeline:hover:not(.used) { box-shadow: 0 0 18px rgba(245,197,66,.6); transform: translateY(-2px); }
-  .lifeline.used { opacity: .35; cursor: not-allowed; }
-  .lifeline.used::after {
-    content: ""; position: absolute; inset: 4px; border-radius: 999px;
-    background: linear-gradient(45deg, transparent 46%, var(--red) 46%, var(--red) 54%, transparent 54%),
-                linear-gradient(-45deg, transparent 46%, var(--red) 46%, var(--red) 54%, transparent 54%);
+  .btn-audio {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--white);
+    padding: 8px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13.5px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
   }
-  .host {
-    flex: 1; min-height: 130px; display: flex; align-items: center; justify-content: center;
-    padding: 10px 0;
+  .btn-audio:hover {
+    background: rgba(255, 215, 0, 0.15);
+    border-color: var(--gold-2);
   }
-  .host-msg { max-width: 700px; text-align: center; color: #bcd0ff; font-size: 16px; line-height: 1.6; }
-  .timer {
-    width: 76px; height: 76px; border-radius: 50%; margin: 0 auto 12px;
-    border: 4px solid var(--gold); display: flex; align-items: center; justify-content: center;
-    font-size: 30px; font-weight: 900; color: var(--white);
-    background: radial-gradient(circle, #0a2f86, #030d30);
-    box-shadow: 0 0 22px rgba(245,197,66,.35);
+  
+  .btn-nav-game {
+    background: linear-gradient(135deg, #ffd700, #ff9800);
+    color: #1a0f00;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 999px;
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 0 18px rgba(255, 215, 0, 0.4);
+    transition: all 0.2s ease;
   }
-  .timer.warn { color: var(--red); border-color: var(--red); animation: blink .5s steps(2) infinite; }
-  @keyframes blink { 50% { box-shadow: 0 0 30px rgba(231,76,60,.8); } }
+  .btn-nav-game:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.7);
+  }
 
-  .question-box {
-    position: relative; background: linear-gradient(180deg, #0d2f7e, #041236);
-    border: 2px solid var(--gold); border-radius: 16px;
-    padding: 22px 28px; text-align: center;
-    font-size: clamp(17px, 2.6vw, 22px); font-weight: 700; line-height: 1.55;
-    box-shadow: 0 6px 30px rgba(0,0,0,.5);
-    min-height: 92px; display: flex; align-items: center; justify-content: center;
+  /* Screens Management */
+  .screen {
+    position: relative;
+    z-index: 1;
+    display: none;
+    min-height: calc(100vh - 67px);
+    opacity: 0;
+    transition: opacity 0.35s ease;
   }
-  .answers { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; margin-top: 16px; }
-  .answer {
-    position: relative; cursor: pointer; border: 2px solid #3c6ad4; border-radius: 999px;
-    background: linear-gradient(180deg, #0d2f7e, #041236);
-    padding: 14px 20px 14px 52px; font-size: clamp(15px, 2.2vw, 17.5px); font-weight: 600;
-    color: var(--white); text-align: left; transition: .18s; line-height: 1.4;
-    display: flex; align-items: center; min-height: 56px;
+  .screen.active {
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
   }
-  .answer .key { position: absolute; left: 20px; color: var(--gold); font-weight: 900; }
-  .answer:hover:not(.disabled):not(.hidden-a) { border-color: var(--gold); background: linear-gradient(180deg, #14459f, #072055); box-shadow: 0 0 16px rgba(245,197,66,.4); }
-  .answer.selected { background: linear-gradient(180deg, #ffb300, #e07800); border-color: #ffe9a3; color: #241300; animation: blinkSel .45s steps(2) infinite; }
-  .answer.selected .key { color: #241300; }
-  @keyframes blinkSel { 50% { filter: brightness(1.25); } }
-  .answer.correct { background: linear-gradient(180deg, #35d97b, #128a43) !important; border-color: #baffd8; color: #04240f; animation: none; }
-  .answer.correct .key { color: #04240f; }
-  .answer.wrong { background: linear-gradient(180deg, #ff6d5a, #b32215) !important; border-color: #ffc9c0; color: #2c0500; animation: none; }
-  .answer.wrong .key { color: #2c0500; }
-  .answer.disabled { cursor: default; }
-  .answer.hidden-a { opacity: 0; pointer-events: none; }
 
-  .game-actions { display: flex; justify-content: center; gap: 12px; margin-top: 18px; flex-wrap: wrap; }
-
-  /* ---- money ladder ---- */
-  .ladder {
-    background: linear-gradient(180deg, rgba(6,20,60,.9), rgba(2,8,28,.95));
-    border: 2px solid rgba(245,197,66,.5); border-radius: 16px; padding: 14px 10px;
-    display: flex; flex-direction: column-reverse; justify-content: center; gap: 2px;
-    box-shadow: 0 6px 30px rgba(0,0,0,.5);
+  /* =========================================================
+     1. START / HERO SCREEN
+     ========================================================= */
+  #screen-start {
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    text-align: center;
   }
-  .rung {
-    display: flex; align-items: center; gap: 8px; padding: 5px 12px; border-radius: 999px;
-    font-size: 14.5px; font-weight: 700; color: #9db4ea; transition: .2s;
+  .hero-container {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
-  .rung .n { width: 22px; text-align: right; color: #6f87c4; font-size: 12.5px; }
-  .rung.milestone { color: var(--white); }
-  .rung.milestone .n { color: #cfe0ff; }
-  .rung.current { background: linear-gradient(90deg, var(--orange), #ffb300); color: #241300; box-shadow: 0 0 16px rgba(255,152,0,.7); }
-  .rung.current .n { color: #241300; }
-  .rung.passed { color: var(--gold); }
-  .rung.passed .n { color: var(--gold-dark); }
-
-  /* ---- modal ---- */
-  .modal-backdrop {
-    position: fixed; inset: 0; z-index: 50; background: rgba(1,5,20,.78);
-    display: none; align-items: center; justify-content: center; padding: 18px;
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 18px;
+    border-radius: 999px;
+    background: rgba(255, 215, 0, 0.1);
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    color: var(--gold-2);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.15);
   }
-  .modal-backdrop.show { display: flex; }
-  .modal {
-    width: min(560px, 96vw); background: linear-gradient(180deg, #0c2b74, #041033);
-    border: 2px solid var(--gold); border-radius: 20px; padding: 28px;
-    text-align: center; box-shadow: 0 0 60px rgba(0,0,0,.7); animation: cardIn .35s ease both;
+  
+  .hero-title {
+    font-family: var(--font-heading);
+    font-size: clamp(36px, 7vw, 68px);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    background: linear-gradient(180deg, #ffffff 10%, #ffe082 50%, #d4af37 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    margin-bottom: 16px;
   }
-  .modal h3 { color: var(--gold); font-size: 22px; margin-bottom: 14px; }
-  .modal p { color: #dbe6ff; line-height: 1.65; font-size: 16px; margin-bottom: 10px; }
-  .modal .btn { margin-top: 14px; }
-  .audience-bars { display: flex; justify-content: center; align-items: flex-end; gap: 26px; height: 170px; margin: 18px 0 6px; }
-  .abar { width: 46px; display: flex; flex-direction: column; align-items: center; gap: 6px; }
-  .abar .bar { width: 100%; border-radius: 6px 6px 0 0; background: linear-gradient(180deg, #ffd257, var(--orange)); box-shadow: 0 0 12px rgba(255,152,0,.5); transition: height 1s ease; height: 0; }
-  .abar .pct { font-weight: 800; color: var(--gold); font-size: 14px; }
-  .abar .lbl { font-weight: 900; color: var(--white); }
-  .phone-quote { font-style: italic; color: #ffedb8; background: rgba(245,197,66,.08); border-radius: 12px; padding: 16px; margin-top: 10px; line-height: 1.6; }
+  .hero-subtitle {
+    font-size: clamp(16px, 2.5vw, 22px);
+    color: var(--slate-300);
+    max-width: 720px;
+    margin-bottom: 36px;
+    font-weight: 500;
+  }
+  .hero-subtitle b {
+    color: var(--gold-2);
+    font-weight: 700;
+  }
 
-  /* ================= END SCREENS ================= */
-  #screen-end { justify-content: center; text-align: center; padding: 24px; }
-  .end-emoji { font-size: 74px; margin-bottom: 12px; }
-  .end-title { font-size: clamp(28px, 5vw, 44px); font-weight: 900; color: var(--gold); margin-bottom: 12px; }
-  .end-prize { font-size: clamp(22px, 4vw, 34px); font-weight: 900; color: var(--white); margin: 6px 0 4px; }
-  .end-msg { max-width: 640px; color: #cfe0ff; line-height: 1.7; font-size: 17px; margin: 10px auto 0; }
-  .end-fact { max-width: 640px; margin: 22px auto 0; padding: 16px 22px; border: 1px dashed rgba(245,197,66,.6); border-radius: 14px; color: #ffedb8; font-size: 15px; line-height: 1.65; background: rgba(245,197,66,.06); }
-  .confetti { position: fixed; top: -12px; z-index: 5; font-size: 22px; animation: fall linear forwards; pointer-events: none; }
-  @keyframes fall { to { transform: translateY(105vh) rotate(720deg); opacity: .6; } }
+  /* Cover Card Showcase */
+  .cover-card-preview {
+    position: relative;
+    width: min(650px, 90vw);
+    border-radius: 20px;
+    overflow: hidden;
+    border: 2px solid var(--glass-border);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), var(--shadow-gold);
+    margin-bottom: 40px;
+    transition: transform 0.3s ease;
+  }
+  .cover-card-preview:hover {
+    transform: translateY(-6px);
+  }
+  .cover-card-preview img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+  .cover-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 40%, rgba(2, 6, 23, 0.9) 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 24px;
+    text-align: left;
+  }
+  .cover-tag-group {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+  .c-tag {
+    font-size: 11px;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .c-tag.blue { background: #1e3a8a; color: #93c5fd; }
+  .c-tag.gold { background: #78350f; color: #fde047; }
 
-  footer { position: relative; z-index: 1; text-align: center; color: #6f87c4; font-size: 12.5px; padding: 14px; }
+  .hero-actions {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .btn-hero-primary {
+    cursor: pointer;
+    border: 2px solid #fff0c0;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #ffe082 0%, #ffb300 50%, #c78000 100%);
+    color: #1f1300;
+    font-family: var(--font-heading);
+    font-size: 18px;
+    font-weight: 800;
+    padding: 16px 42px;
+    box-shadow: 0 10px 30px rgba(255, 179, 0, 0.4);
+    transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .btn-hero-primary:hover {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 15px 40px rgba(255, 179, 0, 0.6);
+  }
 
-  @media (max-width: 860px) {
-    .game-wrap { grid-template-columns: 1fr; }
-    .ladder { flex-direction: row-reverse; flex-wrap: wrap-reverse; gap: 4px; justify-content: center; }
-    .rung { font-size: 11.5px; padding: 4px 8px; }
-    .rung .n { width: auto; }
-    .rung:not(.current):not(.milestone):not(.passed) { display: none; }
-    .answers { grid-template-columns: 1fr; }
-    .host { min-height: 60px; }
+  .btn-hero-secondary {
+    cursor: pointer;
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    border-radius: 999px;
+    background: rgba(11, 25, 71, 0.6);
+    backdrop-filter: blur(10px);
+    color: var(--white);
+    font-family: var(--font-heading);
+    font-size: 18px;
+    font-weight: 700;
+    padding: 16px 36px;
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .btn-hero-secondary:hover {
+    border-color: var(--teal-2);
+    color: var(--teal-1);
+    background: rgba(13, 148, 136, 0.2);
+    box-shadow: 0 0 20px rgba(45, 212, 191, 0.3);
+    transform: translateY(-2px);
+  }
+
+  /* =========================================================
+     2. NOTEBOOK SCREEN ("SỔ TAY KIẾN THỨC")
+     ========================================================= */
+  #screen-notebook {
+    padding: 30px 16px 60px;
+    align-items: center;
+  }
+  .notebook-wrapper {
+    width: min(980px, 98vw);
+    margin: 0 auto;
+  }
+
+  /* Chapter Tabs Navigation */
+  .ch-tabs-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .ch-tab-card {
+    cursor: pointer;
+    background: rgba(15, 23, 42, 0.6);
+    border: 2px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: all 0.25s ease;
+  }
+  .ch-tab-card:hover {
+    border-color: rgba(255, 215, 0, 0.4);
+    background: rgba(15, 23, 42, 0.85);
+  }
+  .ch-tab-card.active.ch-0 {
+    background: linear-gradient(135deg, rgba(30, 58, 138, 0.9), rgba(15, 23, 42, 0.95));
+    border-color: var(--gold-2);
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.25);
+  }
+  .ch-tab-card.active.ch-1 {
+    background: linear-gradient(135deg, rgba(13, 148, 136, 0.35), rgba(15, 23, 42, 0.95));
+    border-color: var(--teal-2);
+    box-shadow: 0 0 25px rgba(45, 212, 191, 0.25);
+  }
+  
+  .ch-tab-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+  .ch-0 .ch-tab-icon { color: var(--gold-2); }
+  .ch-1 .ch-tab-icon { color: var(--teal-2); }
+  
+  .ch-tab-info h4 {
+    font-family: var(--font-heading);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--slate-400);
+  }
+  .ch-tab-info h3 {
+    font-family: var(--font-heading);
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--white);
+  }
+  .active.ch-0 .ch-tab-info h3 { color: var(--gold-1); }
+  .active.ch-1 .ch-tab-info h3 { color: var(--teal-1); }
+
+  /* Notebook Main Page Canvas */
+  .notebook-page-card {
+    background: linear-gradient(160deg, rgba(15, 29, 74, 0.95), rgba(4, 12, 38, 0.98));
+    border: 2px solid rgba(255, 215, 0, 0.35);
+    border-radius: 24px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+    overflow: hidden;
+    position: relative;
+    animation: fadeInSlide 0.4s ease-out;
+  }
+  .notebook-page-card.ch-1 {
+    border-color: rgba(45, 212, 191, 0.4);
+  }
+
+  @keyframes fadeInSlide {
+    from { opacity: 0; transform: translateY(18px) scale(0.99); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  /* Notebook Header Bar */
+  .nb-page-header {
+    padding: 20px 30px;
+    background: rgba(2, 6, 23, 0.5);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .nb-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .badge-chapter {
+    padding: 4px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background: rgba(255, 215, 0, 0.12);
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    color: var(--gold-2);
+  }
+  .ch-1 .badge-chapter {
+    background: rgba(45, 212, 191, 0.12);
+    border-color: rgba(45, 212, 191, 0.4);
+    color: var(--teal-2);
+  }
+  .badge-timeline-range {
+    padding: 4px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--white);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  .nb-page-num {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--slate-400);
+  }
+
+  /* Notebook Banner Image */
+  .nb-banner-container {
+    position: relative;
+    width: 100%;
+    max-height: 340px;
+    overflow: hidden;
+    background: #000;
+  }
+  .nb-banner-container img {
+    width: 100%;
+    height: 340px;
+    object-fit: cover;
+    object-position: center;
+    filter: brightness(0.9) contrast(1.05);
+    transition: transform 0.5s ease;
+  }
+  .nb-banner-container:hover img {
+    transform: scale(1.03);
+  }
+  .nb-banner-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 40%, rgba(4, 12, 38, 0.98) 100%);
+  }
+
+  /* Notebook Content Body */
+  .nb-content-body {
+    padding: 30px clamp(20px, 4vw, 44px);
+  }
+  .nb-period-title {
+    font-family: var(--font-heading);
+    font-size: clamp(22px, 3.8vw, 32px);
+    font-weight: 900;
+    color: var(--gold-1);
+    margin-bottom: 20px;
+    line-height: 1.25;
+  }
+  .ch-1 .nb-period-title { color: var(--teal-1); }
+
+  .nb-paragraph {
+    font-size: clamp(15px, 2vw, 17px);
+    line-height: 1.8;
+    color: var(--slate-300);
+    margin-bottom: 16px;
+    text-align: justify;
+  }
+  .nb-paragraph b {
+    color: var(--gold-2);
+    font-weight: 700;
+  }
+  .ch-1 .nb-paragraph b { color: var(--teal-2); }
+
+  /* Concept Badges / Highlight Tags */
+  .concept-tags-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 20px 0;
+  }
+  .concept-tag {
+    background: rgba(255, 215, 0, 0.1);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    color: #ffedb8;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .ch-1 .concept-tag {
+    background: rgba(45, 212, 191, 0.1);
+    border-color: rgba(45, 212, 191, 0.3);
+    color: #c8fff2;
+  }
+
+  /* Quote Box */
+  .nb-quote-card {
+    background: rgba(255, 215, 0, 0.06);
+    border-left: 4px solid var(--gold-2);
+    border-radius: 0 16px 16px 0;
+    padding: 18px 24px;
+    margin: 24px 0;
+    position: relative;
+  }
+  .ch-1 .nb-quote-card {
+    background: rgba(45, 212, 191, 0.06);
+    border-left-color: var(--teal-2);
+  }
+  .nb-quote-text {
+    font-style: italic;
+    font-size: 15.5px;
+    color: #fff8e1;
+    line-height: 1.7;
+  }
+  .ch-1 .nb-quote-text { color: #e6fffa; }
+  .nb-quote-author {
+    margin-top: 8px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--gold-2);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .ch-1 .nb-quote-author { color: var(--teal-2); }
+
+  /* Key Exam Takeaways Box ("Nhấn Nhá Trọng Tâm") */
+  .nb-takeaways-box {
+    background: rgba(2, 6, 23, 0.6);
+    border: 1px dashed rgba(255, 215, 0, 0.4);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin-top: 28px;
+  }
+  .ch-1 .nb-takeaways-box {
+    border-color: rgba(45, 212, 191, 0.4);
+  }
+  .takeaway-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 15px;
+    color: var(--gold-2);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .ch-1 .takeaway-header { color: var(--teal-2); }
+  .takeaway-list {
+    list-style: none;
+    display: grid;
+    gap: 10px;
+  }
+  .takeaway-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14.5px;
+    color: var(--slate-300);
+  }
+  .takeaway-item .bullet {
+    color: var(--gold-2);
+    font-weight: 900;
+  }
+  .ch-1 .takeaway-item .bullet { color: var(--teal-2); }
+
+  /* Horizontal Timeline Indicator */
+  .nb-timeline-steps {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 20px 30px;
+    background: rgba(2, 6, 23, 0.7);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .timeline-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  .timeline-line {
+    flex: 1;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.12);
+  }
+  .timeline-dot.active {
+    background: var(--gold-2);
+    border-color: #fff;
+    box-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
+    transform: scale(1.3);
+  }
+  .ch-1 .timeline-dot.active {
+    background: var(--teal-2);
+    box-shadow: 0 0 12px rgba(45, 212, 191, 0.8);
+  }
+  .timeline-dot.passed {
+    background: var(--gold-4);
+    border-color: var(--gold-3);
+  }
+
+  /* Notebook Navigation Footer */
+  .nb-nav-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+  .btn-nb-nav {
+    padding: 12px 28px;
+    border-radius: 999px;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(15, 23, 42, 0.8);
+    color: var(--white);
+  }
+  .btn-nb-nav:hover {
+    border-color: var(--gold-2);
+    background: rgba(30, 41, 59, 1);
+    transform: translateY(-2px);
+  }
+  .btn-nb-nav.primary {
+    background: linear-gradient(135deg, #ffd700, #ff9800);
+    color: #1a0f00;
+    border: none;
+    font-weight: 800;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+  }
+  .btn-nb-nav.primary:hover {
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.7);
+  }
+
+  /* =========================================================
+     3. GAME SCREEN ("AI LÀ TRIỆU PHÚ")
+     ========================================================= */
+  #screen-game {
+    padding: 20px 16px 40px;
+    align-items: center;
+  }
+  .game-container {
+    width: min(1200px, 98vw);
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 20px;
+  }
+  
+  .stage-main {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* Game Top Header & Lifelines */
+  .game-topbar {
+    background: rgba(11, 25, 71, 0.75);
+    border: 1px solid rgba(255, 215, 0, 0.25);
+    border-radius: 18px;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .q-badge {
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: 18px;
+    color: var(--gold-2);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .q-badge span {
+    font-size: 14px;
+    color: var(--slate-400);
+    font-weight: 600;
+  }
+
+  .lifelines-row {
+    display: flex;
+    gap: 10px;
+  }
+  .btn-lifeline {
+    width: 65px;
+    height: 46px;
+    border-radius: 999px;
+    border: 2px solid var(--gold-2);
+    background: radial-gradient(circle at 50% 30%, #1e3a8a, #0b1947);
+    color: var(--white);
+    font-weight: 800;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    position: relative;
+  }
+  .btn-lifeline:hover:not(.used) {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+    border-color: #fff;
+  }
+  .btn-lifeline.used {
+    opacity: 0.3;
+    cursor: not-allowed;
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+  .btn-lifeline.used::after {
+    content: "✕";
+    position: absolute;
+    color: var(--red-1);
+    font-size: 24px;
+    font-weight: 900;
+  }
+
+  /* Host Commentator Box */
+  .host-avatar-box {
+    background: linear-gradient(135deg, rgba(15, 29, 74, 0.9), rgba(6, 14, 46, 0.9));
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 18px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-height: 80px;
+  }
+  .host-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #ffd700, #996515);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+    flex-shrink: 0;
+  }
+  .host-speech {
+    font-size: 15px;
+    color: #e2e8f0;
+    line-height: 1.5;
+    font-weight: 500;
+  }
+  .host-speech b { color: var(--gold-2); }
+
+  /* Dynamic Timer Circle */
+  .timer-box {
+    align-self: center;
+    position: relative;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 4px 0;
+  }
+  .timer-svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+  }
+  .timer-circle-bg {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.1);
+    stroke-width: 6;
+  }
+  .timer-circle-val {
+    fill: none;
+    stroke: var(--gold-2);
+    stroke-width: 6;
+    stroke-linecap: round;
+    stroke-dasharray: 226;
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1s linear, stroke 0.3s;
+  }
+  .timer-text {
+    position: absolute;
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: 28px;
+    color: var(--white);
+  }
+  .timer-box.warn .timer-circle-val { stroke: var(--red-1); }
+  .timer-box.warn .timer-text { color: var(--red-1); animation: pulseWarn 0.6s infinite alternate; }
+  @keyframes pulseWarn { from { transform: scale(1); } to { transform: scale(1.15); } }
+
+  /* Question Card */
+  .question-card {
+    background: linear-gradient(180deg, rgba(20, 45, 115, 0.95), rgba(7, 18, 54, 0.98));
+    border: 2px solid var(--gold-2);
+    border-radius: 20px;
+    padding: 28px clamp(20px, 4vw, 36px);
+    text-align: center;
+    font-family: var(--font-heading);
+    font-size: clamp(18px, 2.5vw, 23px);
+    font-weight: 700;
+    line-height: 1.5;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 215, 0, 0.2);
+    min-height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Answer Options Grid */
+  .answers-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .btn-answer {
+    position: relative;
+    cursor: pointer;
+    background: linear-gradient(180deg, rgba(15, 35, 95, 0.9), rgba(5, 15, 45, 0.95));
+    border: 2px solid #3b82f6;
+    border-radius: 999px;
+    padding: 16px 24px 16px 56px;
+    font-family: var(--font-body);
+    font-size: clamp(15px, 2vw, 17px);
+    font-weight: 600;
+    color: var(--white);
+    text-align: left;
+    transition: all 0.2s ease;
+    min-height: 62px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  }
+  .btn-answer .ans-key {
+    position: absolute;
+    left: 20px;
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: 18px;
+    color: var(--gold-2);
+  }
+  .btn-answer:hover:not(.disabled):not(.hidden-ans) {
+    border-color: var(--gold-2);
+    background: linear-gradient(180deg, rgba(30, 65, 160, 0.95), rgba(10, 30, 90, 0.95));
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+    transform: translateY(-2px);
+  }
+  
+  /* Answer States */
+  .btn-answer.selected {
+    background: linear-gradient(180deg, #ffb300, #e07800) !important;
+    border-color: #fff !important;
+    color: #1a0f00 !important;
+    animation: flashSel 0.4s ease-in-out infinite alternate;
+  }
+  .btn-answer.selected .ans-key { color: #1a0f00 !important; }
+  @keyframes flashSel { from { filter: brightness(1); } to { filter: brightness(1.25); } }
+
+  .btn-answer.correct {
+    background: linear-gradient(180deg, #22c55e, #15803d) !important;
+    border-color: #86efac !important;
+    color: #022c22 !important;
+    animation: none !important;
+    box-shadow: 0 0 25px rgba(34, 197, 94, 0.8) !important;
+  }
+  .btn-answer.correct .ans-key { color: #022c22 !important; }
+
+  .btn-answer.wrong {
+    background: linear-gradient(180deg, #ef4444, #991b1b) !important;
+    border-color: #fca5a5 !important;
+    color: #fff !important;
+    animation: none !important;
+  }
+  .btn-answer.wrong .ans-key { color: #fff !important; }
+
+  .btn-answer.disabled { cursor: default; }
+  .btn-answer.hidden-ans { opacity: 0; pointer-events: none; }
+
+  /* Game Actions Bar */
+  .game-actions-bar {
+    display: flex;
+    justify-content: center;
+    margin-top: 8px;
+  }
+  .btn-walk-away {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: var(--slate-300);
+    padding: 10px 24px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .btn-walk-away:hover {
+    border-color: var(--gold-2);
+    color: var(--gold-2);
+    background: rgba(255, 215, 0, 0.1);
+  }
+
+  /* Money Ladder Sidebar */
+  .ladder-sidebar {
+    background: linear-gradient(180deg, rgba(11, 25, 71, 0.85), rgba(4, 12, 38, 0.95));
+    border: 2px solid rgba(255, 215, 0, 0.35);
+    border-radius: 20px;
+    padding: 16px 12px;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 3px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  }
+  .ladder-rung {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-family: var(--font-heading);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--slate-400);
+    transition: all 0.2s ease;
+  }
+  .rung-num {
+    width: 24px;
+    font-size: 12px;
+    color: var(--slate-400);
+  }
+  .ladder-rung.milestone {
+    color: var(--white);
+    font-weight: 800;
+  }
+  .ladder-rung.milestone .rung-num { color: var(--gold-2); }
+  .ladder-rung.current {
+    background: linear-gradient(90deg, #ff9800, #ffd700);
+    color: #1a0f00;
+    box-shadow: 0 0 15px rgba(255, 152, 0, 0.7);
+    font-weight: 900;
+  }
+  .ladder-rung.current .rung-num { color: #1a0f00; }
+  .ladder-rung.passed {
+    color: var(--gold-2);
+  }
+
+  /* =========================================================
+     4. END GAME SCREEN
+     ========================================================= */
+  #screen-end {
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    text-align: center;
+  }
+  .end-card {
+    max-width: 680px;
+    background: linear-gradient(180deg, rgba(15, 29, 74, 0.95), rgba(4, 12, 38, 0.98));
+    border: 2px solid var(--gold-2);
+    border-radius: 28px;
+    padding: 40px 30px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.7), var(--shadow-gold);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .end-icon {
+    font-size: 72px;
+    margin-bottom: 12px;
+  }
+  .end-title {
+    font-family: var(--font-heading);
+    font-size: clamp(26px, 5vw, 42px);
+    font-weight: 900;
+    color: var(--gold-2);
+    margin-bottom: 8px;
+  }
+  .end-prize-badge {
+    font-family: var(--font-heading);
+    font-size: clamp(28px, 6vw, 46px);
+    font-weight: 900;
+    color: var(--white);
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+    margin: 10px 0;
+  }
+  .end-desc {
+    color: var(--slate-300);
+    font-size: 16.5px;
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+  .end-fact-box {
+    background: rgba(255, 215, 0, 0.08);
+    border: 1px dashed rgba(255, 215, 0, 0.4);
+    border-radius: 16px;
+    padding: 16px 20px;
+    color: #ffedb8;
+    font-size: 14.5px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    text-align: left;
+  }
+
+  /* Confetti Animation */
+  .confetti-piece {
+    position: fixed;
+    top: -20px;
+    z-index: 999;
+    font-size: 24px;
+    pointer-events: none;
+    animation: confettiFall linear forwards;
+  }
+  @keyframes confettiFall {
+    to { transform: translateY(105vh) rotate(720deg); opacity: 0.3; }
+  }
+
+  /* =========================================================
+     5. MODAL SYSTEM
+     ========================================================= */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(2, 6, 23, 0.82);
+    backdrop-filter: blur(8px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .modal-overlay.show { display: flex; }
+  
+  .modal-content-card {
+    width: min(560px, 94vw);
+    background: linear-gradient(180deg, rgba(15, 32, 85, 0.98), rgba(4, 12, 38, 0.99));
+    border: 2px solid var(--gold-2);
+    border-radius: 24px;
+    padding: 30px clamp(20px, 4vw, 32px);
+    text-align: center;
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.8), var(--shadow-gold);
+    animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  @keyframes modalPop {
+    from { opacity: 0; transform: scale(0.85); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .modal-title {
+    font-family: var(--font-heading);
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--gold-2);
+    margin-bottom: 12px;
+  }
+  .modal-text {
+    color: var(--slate-300);
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  /* Audience Chart Modal */
+  .audience-chart {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 22px;
+    height: 180px;
+    margin: 20px 0 10px;
+  }
+  .bar-group {
+    width: 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .bar-fill {
+    width: 100%;
+    border-radius: 8px 8px 0 0;
+    background: linear-gradient(180deg, #ffd700, #ff9800);
+    box-shadow: 0 0 15px rgba(255, 152, 0, 0.5);
+    transition: height 1s ease-out;
+    height: 0;
+  }
+  .bar-pct { font-weight: 800; color: var(--gold-2); font-size: 14px; }
+  .bar-label { font-weight: 900; color: var(--white); font-size: 16px; }
+
+  /* Phone Call Modal */
+  .phone-speech-card {
+    background: rgba(255, 215, 0, 0.08);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    border-radius: 16px;
+    padding: 18px;
+    margin: 16px 0;
+    font-style: italic;
+    color: #ffedb8;
+    line-height: 1.6;
+  }
+
+  /* Responsive Design Adjustments */
+  @media (max-width: 900px) {
+    .game-container { grid-template-columns: 1fr; }
+    .ladder-sidebar {
+      flex-direction: row-reverse;
+      flex-wrap: wrap-reverse;
+      gap: 4px;
+      justify-content: center;
+    }
+    .ladder-rung { font-size: 12px; padding: 4px 8px; }
+    .ladder-rung:not(.current):not(.milestone):not(.passed) { display: none; }
+    .answers-grid { grid-template-columns: 1fr; }
+    .ch-tabs-container { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
-<div class="spotlights"></div>
 
-<!-- ============ START ============ -->
-<section id="screen-start" class="screen active">
-  <div class="logo-ring">
-    <div class="money">💎</div>
-    <div class="brand">Triệu phú<br>Tri thức</div>
-  </div>
-  <h1 class="title">AI LÀ TRIỆU PHÚ</h1>
-  <div class="subtitle">Phiên bản đặc biệt: <b>Triết học Mác - Lênin</b></div>
-  <div class="course-tag">MLN121 · PHILOSOPHY EDITION</div>
-  <div class="start-actions">
-    <button class="btn gold" onclick="showIntro(0)">🎬 Bắt đầu hành trình</button>
-    <button class="btn" onclick="startGame()">⚡ Vào game ngay</button>
-  </div>
-  <footer>Sản phẩm học tập môn Triết học Mác - Lênin · Lấy cảm hứng từ chương trình "Ai Là Triệu Phú"</footer>
-</section>
-
-<!-- ============ INTRO ============ -->
-<section id="screen-intro" class="screen">
-  <div class="intro-card" id="intro-card"></div>
-</section>
-
-<!-- ============ GAME ============ -->
-<section id="screen-game" class="screen">
-  <div class="game-wrap">
-    <div class="stage">
-      <div class="topbar">
-        <div class="q-counter" id="q-counter">Câu 1</div>
-        <div class="lifelines">
-          <button class="lifeline" id="ll-5050" title="50:50 - Loại bỏ 2 phương án sai" onclick="use5050()">50:50</button>
-          <button class="lifeline" id="ll-phone" title="Gọi điện thoại cho người thân" onclick="usePhone()">📞</button>
-          <button class="lifeline" id="ll-audience" title="Hỏi ý kiến khán giả" onclick="useAudience()">👥</button>
-        </div>
-      </div>
-      <div class="host"><div class="host-msg" id="host-msg"></div></div>
-      <div class="timer" id="timer">30</div>
-      <div class="question-box" id="question-text"></div>
-      <div class="answers" id="answers"></div>
-      <div class="game-actions">
-        <button class="btn ghost" id="btn-walk" onclick="walkAway()">🏳️ Dừng cuộc chơi</button>
-      </div>
-    </div>
-    <aside class="ladder" id="ladder"></aside>
-  </div>
-</section>
-
-<!-- ============ END ============ -->
-<section id="screen-end" class="screen">
-  <div class="end-emoji" id="end-emoji">🎉</div>
-  <div class="end-title" id="end-title"></div>
-  <div class="end-prize" id="end-prize"></div>
-  <div class="end-msg" id="end-msg"></div>
-  <div class="end-fact" id="end-fact"></div>
-  <div class="start-actions">
-    <button class="btn gold" onclick="startGame()">🔄 Chơi lại</button>
-    <button class="btn" onclick="goHome()">🏠 Về trang chủ</button>
-  </div>
-</section>
-
-<!-- ============ MODAL ============ -->
-<div class="modal-backdrop" id="modal">
-  <div class="modal" id="modal-content"></div>
+<!-- Ambient Studio Backdrops -->
+<div class="studio-backdrop">
+  <div class="grid-pattern"></div>
+  <div class="spotlight-beam left"></div>
+  <div class="spotlight-beam right"></div>
 </div>
 
+<!-- Header Navigation -->
+<header class="app-header">
+  <a class="brand-logo" onclick="goHome()">
+    <div class="brand-icon">💎</div>
+    <div>
+      <div class="brand-text">AI LÀ TRIỆU PHÚ</div>
+      <span class="brand-tag">Kinh Tế Chính Trị MLN122</span>
+    </div>
+  </a>
+
+  <div class="nav-tools">
+    <button class="btn-audio" id="btn-sound-toggle" onclick="toggleSound()">
+      <span id="sound-icon">🔊</span> <span id="sound-label">Bật Âm Thanh</span>
+    </button>
+    <button class="btn-nav-game" onclick="startGame()">
+      🎮 Chơi Game ngay
+    </button>
+  </div>
+</header>
+
+<!-- =========================================================
+     1. START / HERO SCREEN
+     ========================================================= -->
+<section id="screen-start" class="screen active">
+  <div class="hero-container">
+    <div class="hero-badge">
+      ✨ Trải Nghiệm Học Tập Tương Tác Cực Đỉnh
+    </div>
+
+    <h1 class="hero-title">SỔ TAY KIẾN THỨC &<br>AI LÀ TRIỆU PHÚ</h1>
+    <p class="hero-subtitle">
+      Khám phá <b>10 thời kỳ lịch sử Mác - Lênin & Kinh tế Việt Nam</b> với hình ảnh minh họa sống động, nhấn nhá trọng tâm, và chinh phục đỉnh cao <b>150.000.000đ</b>!
+    </p>
+
+    <!-- Interactive Cover Preview Card -->
+    <div class="cover-card-preview" onclick="openNotebook(0)">
+      <img src="assets/images/cover.jpg" alt="Sổ tay kiến thức Mác - Lênin">
+      <div class="cover-overlay">
+        <div class="cover-tag-group">
+          <span class="c-tag blue">Chương I: Triết Học Mác-Lênin</span>
+          <span class="c-tag gold">Chương II: Kinh Tế Việt Nam</span>
+        </div>
+        <h3 style="font-family:var(--font-heading); font-size:22px; font-weight:800; color:#fff;">
+          📖 Mở Sổ Tay Kiến Thức Tương Tác
+        </h3>
+        <p style="font-size:13.5px; color:#cbd5e1; margin-top:4px;">
+          Bao gồm 10 thời kỳ phát triển, hình ảnh minh họa độc quyền & các từ khóa trọng tâm.
+        </p>
+      </div>
+    </div>
+
+    <div class="hero-actions">
+      <button class="btn-hero-primary" onclick="openNotebook(0)">
+        📖 Đọc Sổ Tay Kiến Thức
+      </button>
+      <button class="btn-hero-secondary" onclick="startGame()">
+        ⚡ Thách Thức Ai Là Triệu Phú
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     2. NOTEBOOK SCREEN ("SỔ TAY KIẾN THỨC")
+     ========================================================= -->
+<section id="screen-notebook" class="screen">
+  <div class="notebook-wrapper">
+    
+    <!-- Chapter Switcher Tabs -->
+    <div class="ch-tabs-container">
+      <div class="ch-tab-card ch-0 active" id="tab-ch-0" onclick="switchChapter(0)">
+        <div class="ch-tab-icon">🌱</div>
+        <div class="ch-tab-info">
+          <h4>Chương I</h4>
+          <h3>Triết Học Mác - Lênin (5 Thời Kỳ)</h3>
+        </div>
+      </div>
+      <div class="ch-tab-card ch-1" id="tab-ch-1" onclick="switchChapter(1)">
+        <div class="ch-tab-icon">🏛️</div>
+        <div class="ch-tab-info">
+          <h4>Chương II</h4>
+          <h3>Kinh Tế Việt Nam (5 Thời Kỳ)</h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- Active Notebook Page Container -->
+    <div id="notebook-page-viewport"></div>
+
+  </div>
+</section>
+
+<!-- =========================================================
+     3. GAME SCREEN ("AI LÀ TRIỆU PHÚ")
+     ========================================================= -->
+<section id="screen-game" class="screen">
+  <div class="game-container">
+    <div class="stage-main">
+      
+      <!-- Top Bar: Question Badge & Lifelines -->
+      <div class="game-topbar">
+        <div class="q-badge" id="q-counter-badge">
+          Câu 1 <span>· 200.000 đ</span>
+        </div>
+
+        <div class="lifelines-row">
+          <button class="btn-lifeline" id="ll-5050" title="50:50 - Loại bỏ 2 phương án sai" onclick="use5050()">50:50</button>
+          <button class="btn-lifeline" id="ll-phone" title="Gọi điện thoại cho người thân" onclick="usePhone()">📞</button>
+          <button class="btn-lifeline" id="ll-audience" title="Hỏi ý kiến khán giả" onclick="useAudience()">👥</button>
+          <button class="btn-lifeline" id="ll-switch" title="Đổi câu hỏi mới" onclick="useSwitch()">🔄</button>
+        </div>
+      </div>
+
+      <!-- Host Commentator -->
+      <div class="host-avatar-box">
+        <div class="host-icon">🎙️</div>
+        <div class="host-speech" id="host-speech-text">
+          Chào mừng bạn đến với sàn đấu Ai Là Triệu Phú! Hãy suy nghĩ thật cẩn thận trước khi chọn đáp án nhé.
+        </div>
+      </div>
+
+      <!-- Timer Ring -->
+      <div class="timer-box" id="timer-box">
+        <svg class="timer-svg" viewBox="0 0 80 80">
+          <circle class="timer-circle-bg" cx="40" cy="40" r="36"></circle>
+          <circle class="timer-circle-val" id="timer-circle" cx="40" cy="40" r="36"></circle>
+        </svg>
+        <span class="timer-text" id="timer-number">30</span>
+      </div>
+
+      <!-- Question Card -->
+      <div class="question-card" id="question-text-box">
+        Đang tải câu hỏi...
+      </div>
+
+      <!-- Answers Grid -->
+      <div class="answers-grid" id="answers-grid"></div>
+
+      <!-- Walk Away Button -->
+      <div class="game-actions-bar">
+        <button class="btn-walk-away" onclick="walkAway()">
+          🏳️ Dừng cuộc chơi để bảo toàn tiền thưởng
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Money Ladder Sidebar -->
+    <aside class="ladder-sidebar" id="ladder-sidebar"></aside>
+  </div>
+</section>
+
+<!-- =========================================================
+     4. END GAME SCREEN
+     ========================================================= -->
+<section id="screen-end" class="screen">
+  <div class="end-card">
+    <div class="end-icon" id="end-emoji-icon">🎉</div>
+    <div class="end-title" id="end-title-text">KẾT THÚC CUỘC CHƠI</div>
+    <div class="end-prize-badge" id="end-prize-text">0 đ</div>
+    <p class="end-desc" id="end-message-text"></p>
+    
+    <div class="end-fact-box" id="end-fact-text"></div>
+
+    <div style="display:flex; gap:16px; flex-wrap:wrap; justify-content:center;">
+      <button class="btn-hero-primary" onclick="startGame()">
+        🔄 Chơi Lại Ván Mới
+      </button>
+      <button class="btn-hero-secondary" onclick="openNotebook(0)">
+        📖 Ôn Lại Sổ Tay
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     5. MODAL OVERLAY
+     ========================================================= -->
+<div class="modal-overlay" id="app-modal-overlay">
+  <div class="modal-content-card" id="app-modal-card"></div>
+</div>
+
+<!-- Scripts -->
+<script src="questions.js"></script>
 <script>
 "use strict";
-/* =====================================================
-   AI LÀ TRIỆU PHÚ - TRIẾT HỌC MÁC-LÊNIN (MLN121)
-   Ngân hàng 60 câu hỏi chia 3 mức độ, mỗi ván lấy ngẫu nhiên
-   ===================================================== */
 
-const PRIZES = [
+/* =========================================================
+   1. DATA & CONSTANTS
+   ========================================================= */
+const PRIZE_SCALE = [
   "200.000", "400.000", "600.000", "1.000.000", "2.000.000",
   "3.000.000", "6.000.000", "10.000.000", "14.000.000", "22.000.000",
   "30.000.000", "40.000.000", "60.000.000", "85.000.000", "150.000.000"
 ];
-const MILESTONES = [4, 9]; // index câu 5 và câu 10 (mốc an toàn)
-const TIME_PER_QUESTION = 30;
+const SAFE_MILESTONES = [4, 9]; // Q5 (2 triệu) và Q10 (22 triệu)
+const QUESTION_TIMEOUT = 30;
 
-/* q: câu hỏi, a: 4 đáp án, c: index đáp án đúng, e: giải thích ngắn */
-const EASY = [
-  { q: "Triết học Mác được sáng lập bởi ai?", a: ["C.Mác và V.I.Lênin", "C.Mác và Ph.Ăngghen", "Ph.Ăngghen và Hêghen", "V.I.Lênin và Xtalin"], c: 1, e: "C.Mác và Ph.Ăngghen sáng lập vào những năm 40 của thế kỷ XIX, sau đó V.I.Lênin bảo vệ và phát triển." },
-  { q: "Triết học ra đời vào khoảng thời gian nào?", a: ["Thế kỷ VIII - VI trước Công nguyên", "Thế kỷ I sau Công nguyên", "Thế kỷ XV - XVI", "Thế kỷ XIX"], c: 0, e: "Triết học ra đời gần như đồng thời ở phương Đông và phương Tây vào khoảng thế kỷ VIII - VI TCN." },
-  { q: "Vấn đề cơ bản của triết học là gì?", a: ["Mối quan hệ giữa con người và tự nhiên", "Mối quan hệ giữa tư duy và tồn tại", "Mối quan hệ giữa cá nhân và xã hội", "Mối quan hệ giữa lý luận và thực tiễn"], c: 1, e: "Theo Ph.Ăngghen, vấn đề cơ bản lớn của mọi triết học là mối quan hệ giữa tư duy và tồn tại (ý thức và vật chất)." },
-  { q: "Chủ nghĩa duy vật khẳng định điều gì?", a: ["Ý thức có trước, vật chất có sau", "Vật chất có trước, ý thức có sau", "Vật chất và ý thức cùng tồn tại độc lập", "Không thể biết cái nào có trước"], c: 1, e: "Chủ nghĩa duy vật khẳng định vật chất có trước, quyết định ý thức." },
-  { q: "Chủ nghĩa Mác - Lênin gồm mấy bộ phận cấu thành?", a: ["2 bộ phận", "3 bộ phận", "4 bộ phận", "5 bộ phận"], c: 1, e: "Gồm: Triết học Mác - Lênin, Kinh tế chính trị học Mác - Lênin và Chủ nghĩa xã hội khoa học." },
-  { q: "Triết học Mác ra đời vào thời gian nào?", a: ["Những năm 20 của thế kỷ XIX", "Những năm 40 của thế kỷ XIX", "Những năm 60 của thế kỷ XIX", "Đầu thế kỷ XX"], c: 1, e: "Triết học Mác ra đời vào những năm 40 của thế kỷ XIX ở Tây Âu." },
-  { q: "Thuật ngữ 'Philosophia' (triết học) theo tiếng Hy Lạp cổ có nghĩa là gì?", a: ["Yêu mến sự thông thái", "Khoa học của các khoa học", "Nghệ thuật tranh luận", "Sự chiêm nghiệm cuộc đời"], c: 0, e: "Philosophia = philos (yêu mến) + sophia (sự thông thái)." },
-  { q: "Theo chủ nghĩa duy vật biện chứng, những hình thức tồn tại của vật chất là gì?", a: ["Không gian và thời gian", "Vận động và đứng im", "Tự nhiên và xã hội", "Chất và lượng"], c: 0, e: "Không gian và thời gian là những hình thức tồn tại của vật chất." },
-  { q: "Theo Ph.Ăngghen, phương thức tồn tại của vật chất là gì?", a: ["Đứng im", "Vận động", "Phát triển", "Chuyển hóa"], c: 1, e: "Vận động là phương thức tồn tại của vật chất, là thuộc tính cố hữu của vật chất." },
-  { q: "Nguồn gốc xã hội của ý thức là gì?", a: ["Bộ óc người và thế giới khách quan", "Lao động và ngôn ngữ", "Giáo dục và văn hóa", "Di truyền và môi trường"], c: 1, e: "Lao động và ngôn ngữ là hai nguồn gốc xã hội quyết định trực tiếp sự hình thành ý thức." },
-  { q: "Chủ nghĩa duy tâm có mấy hình thức cơ bản?", a: ["Một", "Hai", "Ba", "Bốn"], c: 1, e: "Hai hình thức: chủ nghĩa duy tâm chủ quan và chủ nghĩa duy tâm khách quan." },
-  { q: "Nhà triết học nào được coi là người xây dựng phép biện chứng duy tâm hoàn chỉnh?", a: ["I.Cantơ", "L.Phoiơbắc", "G.W.Ph.Hêghen", "Đêmôcrit"], c: 2, e: "Hêghen là người xây dựng hệ thống phép biện chứng duy tâm hoàn chỉnh nhất." },
-  { q: "C.Mác sinh ra ở quốc gia nào?", a: ["Nước Anh", "Nước Pháp", "Nước Đức", "Nước Nga"], c: 2, e: "C.Mác sinh năm 1818 tại thành phố Trier, nước Đức." },
-  { q: "Tác phẩm 'Tuyên ngôn của Đảng Cộng sản' được công bố năm nào?", a: ["1844", "1848", "1859", "1867"], c: 1, e: "'Tuyên ngôn của Đảng Cộng sản' do C.Mác và Ph.Ăngghen soạn thảo, công bố tháng 2/1848." },
-  { q: "Hạt nhân lý luận của thế giới quan là gì?", a: ["Khoa học tự nhiên", "Triết học", "Tôn giáo", "Nghệ thuật"], c: 1, e: "Triết học là hạt nhân lý luận của thế giới quan." },
-  { q: "Theo chủ nghĩa duy vật biện chứng, ý thức là thuộc tính của dạng vật chất nào?", a: ["Mọi dạng vật chất", "Vật chất sống nói chung", "Bộ óc con người", "Hệ thần kinh của động vật"], c: 2, e: "Ý thức là thuộc tính của một dạng vật chất có tổ chức cao nhất là bộ óc con người." },
-  { q: "Nguồn gốc tự nhiên của ý thức gồm những yếu tố nào?", a: ["Bộ óc người và thế giới khách quan tác động lên bộ óc", "Lao động và ngôn ngữ", "Di truyền và bản năng", "Cảm giác và tri giác"], c: 0, e: "Nguồn gốc tự nhiên: bộ óc người cùng sự tác động của thế giới khách quan lên bộ óc người." },
-  { q: "Theo quan điểm duy vật biện chứng, vận động là gì?", a: ["Sự di chuyển vị trí trong không gian", "Mọi sự biến đổi nói chung", "Sự phát triển đi lên", "Sự thay đổi về chất"], c: 1, e: "Theo Ph.Ăngghen, vận động hiểu theo nghĩa chung nhất là mọi sự biến đổi nói chung." },
-  { q: "Theo quan điểm duy vật biện chứng, đứng im có tính chất gì?", a: ["Tuyệt đối và vĩnh viễn", "Tương đối và tạm thời", "Không tồn tại", "Phổ biến và tất yếu"], c: 1, e: "Vận động là tuyệt đối, đứng im chỉ là tương đối, tạm thời." },
-  { q: "Phép biện chứng duy vật có mấy quy luật cơ bản?", a: ["Hai", "Ba", "Bốn", "Sáu"], c: 1, e: "Ba quy luật: lượng - chất, mâu thuẫn, phủ định của phủ định." },
-];
-
-const MEDIUM = [
-  { q: "Định nghĩa kinh điển về vật chất của V.I.Lênin được nêu trong tác phẩm nào?", a: ["Bút ký triết học", "Nhà nước và cách mạng", "Chủ nghĩa duy vật và chủ nghĩa kinh nghiệm phê phán", "Làm gì?"], c: 2, e: "Định nghĩa vật chất được Lênin nêu trong 'Chủ nghĩa duy vật và chủ nghĩa kinh nghiệm phê phán' (1909)." },
-  { q: "Theo định nghĩa của Lênin, thuộc tính chung nhất của vật chất là gì?", a: ["Có khối lượng và năng lượng", "Tồn tại khách quan không lệ thuộc vào cảm giác", "Có thể cảm nhận bằng giác quan", "Luôn vận động và biến đổi"], c: 1, e: "Thuộc tính cơ bản nhất, phổ biến nhất của vật chất là 'thực tại khách quan' - tồn tại không lệ thuộc vào ý thức." },
-  { q: "Quy luật nào của phép biện chứng chỉ ra CÁCH THỨC của sự vận động, phát triển?", a: ["Quy luật mâu thuẫn", "Quy luật lượng - chất", "Quy luật phủ định của phủ định", "Quy luật quan hệ sản xuất phù hợp lực lượng sản xuất"], c: 1, e: "Quy luật chuyển hóa từ những thay đổi về lượng thành những thay đổi về chất và ngược lại chỉ ra cách thức phát triển." },
-  { q: "Quy luật nào chỉ ra NGUỒN GỐC, ĐỘNG LỰC của sự vận động, phát triển?", a: ["Quy luật lượng - chất", "Quy luật phủ định của phủ định", "Quy luật thống nhất và đấu tranh của các mặt đối lập", "Quy luật kế thừa"], c: 2, e: "Quy luật mâu thuẫn là 'hạt nhân' của phép biện chứng, chỉ ra nguồn gốc và động lực của sự phát triển." },
-  { q: "Quy luật nào chỉ ra KHUYNH HƯỚNG của sự phát triển?", a: ["Quy luật phủ định của phủ định", "Quy luật lượng - chất", "Quy luật mâu thuẫn", "Quy luật nhân quả"], c: 0, e: "Quy luật phủ định của phủ định chỉ ra khuynh hướng phát triển theo đường 'xoáy ốc' đi lên." },
-  { q: "Trong quy luật lượng - chất, 'bước nhảy' là gì?", a: ["Sự thay đổi dần dần về lượng", "Sự chuyển hóa về chất do thay đổi về lượng đạt tới điểm nút", "Sự lặp lại trạng thái cũ", "Giới hạn tồn tại của sự vật"], c: 1, e: "Bước nhảy là sự chuyển hóa về chất của sự vật do những thay đổi về lượng trước đó đạt đến điểm nút gây ra." },
-  { q: "Trong quy luật lượng - chất, 'độ' được hiểu là gì?", a: ["Điểm giới hạn xảy ra bước nhảy", "Khoảng giới hạn trong đó thay đổi về lượng chưa làm thay đổi căn bản chất của sự vật", "Đơn vị đo lường của lượng", "Mức độ hoàn thiện của chất"], c: 1, e: "Độ là khoảng giới hạn mà trong đó sự thay đổi về lượng chưa làm thay đổi căn bản chất của sự vật." },
-  { q: "Phép biện chứng duy vật có mấy nguyên lý cơ bản?", a: ["Một", "Hai", "Ba", "Bốn"], c: 1, e: "Hai nguyên lý: nguyên lý về mối liên hệ phổ biến và nguyên lý về sự phát triển." },
-  { q: "Theo triết học Mác - Lênin, thực tiễn là gì?", a: ["Mọi hoạt động của con người", "Hoạt động tinh thần sáng tạo của con người", "Toàn bộ hoạt động vật chất có mục đích, mang tính lịch sử - xã hội của con người", "Hoạt động thí nghiệm khoa học"], c: 2, e: "Thực tiễn là toàn bộ hoạt động vật chất - cảm tính, có mục đích, mang tính lịch sử - xã hội của con người nhằm cải tạo tự nhiên và xã hội." },
-  { q: "Hình thức cơ bản và quan trọng nhất của hoạt động thực tiễn là gì?", a: ["Hoạt động chính trị - xã hội", "Hoạt động sản xuất vật chất", "Hoạt động thực nghiệm khoa học", "Hoạt động giáo dục"], c: 1, e: "Sản xuất vật chất là hình thức thực tiễn có sớm nhất, cơ bản nhất, quan trọng nhất." },
-  { q: "Theo V.I.Lênin, con đường biện chứng của sự nhận thức chân lý là gì?", a: ["Từ cảm giác đến khái niệm, từ khái niệm đến chân lý", "Từ trực quan sinh động đến tư duy trừu tượng, từ tư duy trừu tượng đến thực tiễn", "Từ kinh nghiệm đến lý luận, từ lý luận đến khoa học", "Từ hiện tượng đến bản chất, từ bản chất đến quy luật"], c: 1, e: "Lênin: 'Từ trực quan sinh động đến tư duy trừu tượng, và từ tư duy trừu tượng đến thực tiễn...'" },
-  { q: "Tiêu chuẩn khách quan để kiểm tra chân lý là gì?", a: ["Lý luận khoa học", "Ý kiến của đa số", "Thực tiễn", "Lôgíc chặt chẽ"], c: 2, e: "Thực tiễn là tiêu chuẩn khách quan duy nhất để kiểm tra chân lý." },
-  { q: "Nhận thức cảm tính gồm những hình thức nào?", a: ["Khái niệm, phán đoán, suy luận", "Cảm giác, tri giác, biểu tượng", "Cảm giác, khái niệm, suy luận", "Tri giác, phán đoán, biểu tượng"], c: 1, e: "Nhận thức cảm tính (trực quan sinh động) gồm: cảm giác, tri giác, biểu tượng." },
-  { q: "Nhận thức lý tính gồm những hình thức nào?", a: ["Cảm giác, tri giác, biểu tượng", "Khái niệm, phán đoán, suy luận", "Kinh nghiệm, lý luận, khoa học", "Biểu tượng, khái niệm, phán đoán"], c: 1, e: "Nhận thức lý tính (tư duy trừu tượng) gồm: khái niệm, phán đoán, suy luận." },
-  { q: "Ba phát minh khoa học tự nhiên nào là tiền đề cho sự ra đời của triết học Mác?", a: ["Thuyết tương đối, thuyết lượng tử, thuyết tiến hóa", "Định luật bảo toàn và chuyển hóa năng lượng, thuyết tế bào, thuyết tiến hóa", "Định luật vạn vật hấp dẫn, thuyết tế bào, thuyết di truyền", "Thuyết nhật tâm, định luật bảo toàn năng lượng, thuyết tiến hóa"], c: 1, e: "Ba tiền đề khoa học tự nhiên: định luật bảo toàn và chuyển hóa năng lượng, thuyết tế bào, thuyết tiến hóa của Đácuyn." },
-  { q: "Tiền đề lý luận trực tiếp cho sự ra đời của triết học Mác là gì?", a: ["Triết học Hy Lạp cổ đại", "Triết học Khai sáng Pháp", "Triết học cổ điển Đức", "Chủ nghĩa thực chứng"], c: 2, e: "Triết học cổ điển Đức (đặc biệt là Hêghen và Phoiơbắc) là tiền đề lý luận trực tiếp." },
-  { q: "Cặp phạm trù nào phản ánh mối quan hệ giữa cái bên trong sâu xa và sự biểu hiện ra bên ngoài của sự vật?", a: ["Nội dung - hình thức", "Bản chất - hiện tượng", "Nguyên nhân - kết quả", "Tất nhiên - ngẫu nhiên"], c: 1, e: "Bản chất là cái bên trong, tương đối ổn định; hiện tượng là sự biểu hiện ra bên ngoài của bản chất." },
-  { q: "Theo phép biện chứng duy vật, 'cái chung' tồn tại như thế nào?", a: ["Tồn tại độc lập bên ngoài cái riêng", "Tồn tại trong cái riêng, thông qua cái riêng", "Chỉ tồn tại trong tư duy con người", "Không tồn tại thực"], c: 1, e: "Cái chung chỉ tồn tại trong cái riêng, thông qua cái riêng mà biểu hiện sự tồn tại của mình." },
-  { q: "Phủ định biện chứng có những đặc trưng cơ bản nào?", a: ["Tính khách quan và tính kế thừa", "Tính chủ quan và tính lặp lại", "Tính ngẫu nhiên và tính tất yếu", "Tính phổ biến và tính đa dạng"], c: 0, e: "Phủ định biện chứng mang tính khách quan và tính kế thừa - giữ lại yếu tố tích cực của cái cũ." },
-  { q: "Theo quan điểm biện chứng duy vật, nguyên nhân là gì?", a: ["Cái có trước kết quả về thời gian", "Sự tác động lẫn nhau giữa các mặt trong một sự vật hoặc giữa các sự vật gây ra biến đổi nhất định", "Mọi hiện tượng xảy ra trước một hiện tượng khác", "Điều kiện để sự vật tồn tại"], c: 1, e: "Nguyên nhân là sự tác động lẫn nhau giữa các mặt trong một sự vật hoặc giữa các sự vật với nhau gây ra một biến đổi nhất định (kết quả)." },
-];
-
-const HARD = [
-  { q: "Lực lượng sản xuất bao gồm những yếu tố nào?", a: ["Người lao động và tư liệu sản xuất", "Tư liệu lao động và đối tượng lao động", "Công cụ lao động và người lao động", "Người lao động và quan hệ sản xuất"], c: 0, e: "Lực lượng sản xuất = người lao động + tư liệu sản xuất (trong đó công cụ lao động là yếu tố động nhất)." },
-  { q: "Yếu tố nào được coi là 'động nhất, cách mạng nhất' trong lực lượng sản xuất?", a: ["Người lao động", "Đối tượng lao động", "Công cụ lao động", "Khoa học công nghệ"], c: 2, e: "Công cụ lao động là yếu tố động nhất, cách mạng nhất trong lực lượng sản xuất." },
-  { q: "Quy luật nào được coi là quy luật cơ bản nhất chi phối sự vận động, phát triển của lịch sử xã hội loài người?", a: ["Quy luật đấu tranh giai cấp", "Quy luật quan hệ sản xuất phù hợp với trình độ phát triển của lực lượng sản xuất", "Quy luật cơ sở hạ tầng quyết định kiến trúc thượng tầng", "Quy luật tồn tại xã hội quyết định ý thức xã hội"], c: 1, e: "Đây là quy luật cơ bản nhất của sự vận động và phát triển xã hội." },
-  { q: "Cơ sở hạ tầng của một xã hội là gì?", a: ["Hệ thống đường sá, cầu cống, bến cảng", "Toàn bộ những quan hệ sản xuất hợp thành cơ cấu kinh tế của xã hội", "Toàn bộ lực lượng sản xuất của xã hội", "Nền tảng khoa học kỹ thuật của xã hội"], c: 1, e: "Cơ sở hạ tầng là toàn bộ những quan hệ sản xuất hợp thành cơ cấu kinh tế của xã hội (khác với nghĩa 'hạ tầng' thông thường!)." },
-  { q: "Kiến trúc thượng tầng là gì?", a: ["Các công trình kiến trúc đồ sộ của xã hội", "Toàn bộ những quan điểm chính trị, pháp quyền, triết học, đạo đức, tôn giáo... cùng những thiết chế xã hội tương ứng", "Bộ máy nhà nước và quân đội", "Hệ thống giáo dục và văn hóa"], c: 1, e: "Kiến trúc thượng tầng gồm các hình thái ý thức xã hội và các thiết chế tương ứng (nhà nước, đảng phái, giáo hội...)." },
-  { q: "Theo chủ nghĩa duy vật lịch sử, yếu tố nào quyết định ý thức xã hội?", a: ["Ý thức của vĩ nhân", "Tồn tại xã hội", "Truyền thống văn hóa", "Kiến trúc thượng tầng"], c: 1, e: "Tồn tại xã hội quyết định ý thức xã hội; ý thức xã hội là sự phản ánh tồn tại xã hội." },
-  { q: "Theo C.Mác, trong tính hiện thực của nó, bản chất con người là gì?", a: ["Tính thiện bẩm sinh", "Tổng hòa những quan hệ xã hội", "Bản năng sinh tồn", "Lý tính và tự do"], c: 1, e: "Luận cương về Phoiơbắc: 'Trong tính hiện thực của nó, bản chất con người là tổng hòa những quan hệ xã hội.'" },
-  { q: "Đấu tranh giai cấp là động lực phát triển trực tiếp của loại xã hội nào?", a: ["Mọi xã hội", "Xã hội có giai cấp đối kháng", "Xã hội tư bản chủ nghĩa", "Xã hội phong kiến"], c: 1, e: "Đấu tranh giai cấp là một trong những động lực phát triển của các xã hội có giai cấp đối kháng." },
-  { q: "Nguyên nhân trực tiếp làm xuất hiện giai cấp trong xã hội là gì?", a: ["Sự khác biệt về năng lực giữa con người", "Chế độ tư hữu về tư liệu sản xuất", "Chiến tranh giữa các bộ lạc", "Sự phân công lao động xã hội"], c: 1, e: "Chế độ tư hữu về tư liệu sản xuất là nguyên nhân trực tiếp của sự phân chia giai cấp." },
-  { q: "Phương thức sản xuất là sự thống nhất giữa những yếu tố nào?", a: ["Cơ sở hạ tầng và kiến trúc thượng tầng", "Lực lượng sản xuất và quan hệ sản xuất", "Người lao động và công cụ lao động", "Sản xuất và tiêu dùng"], c: 1, e: "Phương thức sản xuất = lực lượng sản xuất (nội dung) + quan hệ sản xuất (hình thức)." },
-  { q: "Trong ba mặt của quan hệ sản xuất, quan hệ nào giữ vai trò quyết định?", a: ["Quan hệ tổ chức, quản lý sản xuất", "Quan hệ phân phối sản phẩm", "Quan hệ sở hữu về tư liệu sản xuất", "Quan hệ trao đổi hàng hóa"], c: 2, e: "Quan hệ sở hữu về tư liệu sản xuất quyết định hai quan hệ còn lại." },
-  { q: "Theo chủ nghĩa duy vật lịch sử, lực lượng quyết định sự phát triển của lịch sử là ai?", a: ["Các vĩ nhân, lãnh tụ", "Quần chúng nhân dân", "Giai cấp thống trị", "Tầng lớp trí thức"], c: 1, e: "Quần chúng nhân dân là chủ thể sáng tạo chân chính ra lịch sử." },
-  { q: "Theo quan điểm mácxít, nhà nước ra đời khi nào?", a: ["Cùng với sự xuất hiện của loài người", "Khi xuất hiện chế độ tư hữu và mâu thuẫn giai cấp không thể điều hòa", "Khi có chiến tranh giữa các cộng đồng", "Khi xã hội cần người quản lý"], c: 1, e: "Nhà nước là sản phẩm của mâu thuẫn giai cấp không thể điều hòa được, gắn với chế độ tư hữu." },
-  { q: "Tính độc lập tương đối của ý thức xã hội KHÔNG thể hiện ở điểm nào sau đây?", a: ["Thường lạc hậu hơn so với tồn tại xã hội", "Có thể vượt trước tồn tại xã hội", "Có tính kế thừa trong sự phát triển", "Hoàn toàn không phụ thuộc vào tồn tại xã hội"], c: 3, e: "Ý thức xã hội độc lập tương đối nhưng xét đến cùng vẫn do tồn tại xã hội quyết định." },
-  { q: "Tác phẩm nào của C.Mác và Ph.Ăngghen đánh dấu sự hình thành về cơ bản quan niệm duy vật về lịch sử?", a: ["Tư bản", "Hệ tư tưởng Đức", "Tuyên ngôn của Đảng Cộng sản", "Gia đình thần thánh"], c: 1, e: "'Hệ tư tưởng Đức' (1845-1846) trình bày một cách hệ thống quan niệm duy vật về lịch sử." },
-  { q: "Câu nói 'Tôn giáo là thuốc phiện của nhân dân' là của ai?", a: ["Ph.Ăngghen", "V.I.Lênin", "C.Mác", "L.Phoiơbắc"], c: 2, e: "Câu nói nổi tiếng của C.Mác trong 'Góp phần phê phán triết học pháp quyền của Hêghen'." },
-  { q: "V.I.Lênin bảo vệ và phát triển triết học Mác trong bối cảnh lịch sử nào?", a: ["Cách mạng công nghiệp lần thứ nhất", "Chủ nghĩa tư bản chuyển sang giai đoạn đế quốc chủ nghĩa", "Sau Chiến tranh thế giới thứ hai", "Thời kỳ Chiến tranh lạnh"], c: 1, e: "Cuối thế kỷ XIX - đầu thế kỷ XX, khi CNTB chuyển sang giai đoạn đế quốc chủ nghĩa và khoa học tự nhiên khủng hoảng về thế giới quan." },
-  { q: "Theo chiều ngang, cấu trúc của ý thức bao gồm các yếu tố nào, trong đó yếu tố nào quan trọng nhất?", a: ["Tri thức, tình cảm, ý chí - tri thức quan trọng nhất", "Tự ý thức, tiềm thức, vô thức - tự ý thức quan trọng nhất", "Cảm giác, tri giác, biểu tượng - biểu tượng quan trọng nhất", "Nhận thức, thái độ, hành vi - hành vi quan trọng nhất"], c: 0, e: "Các lớp cấu trúc của ý thức: tri thức, tình cảm, ý chí...; trong đó tri thức là nhân tố quan trọng nhất, là phương thức tồn tại của ý thức." },
-  { q: "Cách mạng xã hội theo nghĩa rộng là gì?", a: ["Cuộc lật đổ một chính quyền bằng bạo lực", "Sự biến đổi có tính bước ngoặt và căn bản về chất trong mọi lĩnh vực đời sống xã hội, thay thế hình thái kinh tế - xã hội cũ bằng hình thái mới", "Mọi cuộc cải cách trong xã hội", "Sự thay đổi người đứng đầu nhà nước"], c: 1, e: "Nghĩa rộng: bước chuyển từ hình thái kinh tế - xã hội này sang hình thái kinh tế - xã hội khác cao hơn." },
-  { q: "Hình thái kinh tế - xã hội là phạm trù chỉ xã hội ở từng giai đoạn lịch sử nhất định với những yếu tố cấu trúc nào?", a: ["Kinh tế, chính trị, văn hóa", "Lực lượng sản xuất, quan hệ sản xuất (cơ sở hạ tầng), kiến trúc thượng tầng", "Nhà nước, pháp luật, đạo đức", "Giai cấp, dân tộc, tôn giáo"], c: 1, e: "Hình thái KT-XH gồm: lực lượng sản xuất, quan hệ sản xuất hợp thành cơ sở hạ tầng, và kiến trúc thượng tầng dựng trên đó." },
-];
-
-/* ===================== INTRO SLIDES ===================== */
-const INTRO_SLIDES = [
+/* Notebook Content Database (10 Periods across 2 Chapters) */
+const NOTEBOOK_DATABASE = [
+  /* CHAPTER I: TRIẾT HỌC MÁC - LÊNIN */
   {
-    step: "Phần mở đầu · 1/3",
-    title: "🏛️ Triết học là gì?",
-    html: `
-      <p><b>Triết học</b> là hệ thống quan điểm lý luận chung nhất của con người về thế giới, về vị trí và vai trò của con người trong thế giới ấy. Ra đời từ khoảng <b>thế kỷ VIII - VI trước Công nguyên</b> ở cả phương Đông (Ấn Độ, Trung Hoa) và phương Tây (Hy Lạp cổ đại), triết học được xem là <b>"khoa học của mọi khoa học"</b> thời cổ đại.</p>
-      <p>Trong tiếng Hy Lạp, triết học — <b>Philosophia</b> — có nghĩa là <b>"yêu mến sự thông thái"</b>. Người học triết không chỉ học tri thức, mà học cách <b>tư duy, đặt câu hỏi và lý giải thế giới</b>.</p>
-      <div class="intro-quote">"Các nhà triết học đã chỉ giải thích thế giới bằng nhiều cách khác nhau, song vấn đề là cải tạo thế giới."<span>— C.Mác, Luận cương về Phoiơbắc (1845)</span></div>
-      <p>Mọi trường phái triết học đều phải trả lời một câu hỏi lớn — <b>vấn đề cơ bản của triết học</b>: giữa <b>vật chất</b> và <b>ý thức</b>, cái nào có trước, cái nào quyết định cái nào? Và con người có khả năng nhận thức được thế giới hay không?</p>`
+    chapter: 0,
+    periodIndex: 0,
+    range: "1841 – 1844",
+    title: "Thời Kỳ Hình Thành Tư Tưởng Triết Học (Bước Quá Độ)",
+    image: "assets/images/ch1_1841_1844.jpg",
+    tags: ["🌱 Bước Quá Độ", "💡 Lợi Ích Vật Chất", "🚩 Sứ Mệnh Giai Cấp Vô Sản"],
+    paragraphs: [
+      "Đây là giai đoạn diễn ra <b>bước quá độ tư tưởng căn bản</b> của C.Mác và Ph.Ăngghen — chuyển đổi từ lập trường chủ nghĩa duy tâm và dân chủ cách mạng sang <b>chủ nghĩa duy vật và chủ nghĩa cộng sản</b>.",
+      "Thông qua đấu tranh báo chí và nghiên cứu khoa học khách quan, C.Mác phát hiện ra rằng các quan hệ khách quan quyết định hoạt động của nhà nước chính là <b>những lợi ích vật chất</b>."
+    ],
+    quote: {
+      text: "Trong các bài báo trên tạp chí Niên giám Pháp - Đức (1844), C.Mác lần đầu tiên chỉ ra giai cấp vô sản chính là lực lượng xã hội có sứ mệnh lịch sử giải phóng toàn nhân loại.",
+      author: "Cột mốc chuyển biến tư tưởng 1844"
+    },
+    takeaways: [
+      "Chuyển từ Duy tâm & Dân chủ cách mạng sang Duy vật & Chủ nghĩa cộng sản.",
+      "Nhận ra vai trò quyết định của lợi ích vật chất đối với nhà nước.",
+      "Bài báo Niên giám Pháp - Đức (1844) lần đầu khẳng định sứ mệnh lịch sử của giai cấp công nhân."
+    ]
   },
   {
-    step: "Phần mở đầu · 2/3",
-    title: "⚒️ Triết học Mác - Lênin",
-    html: `
-      <p><b>Triết học Mác - Lênin</b> do <b>C.Mác</b> (1818-1883) và <b>Ph.Ăngghen</b> (1820-1895) sáng lập vào những năm 40 của thế kỷ XIX, sau đó được <b>V.I.Lênin</b> (1870-1924) bảo vệ và phát triển. Đây là sự thống nhất hữu cơ giữa <b>chủ nghĩa duy vật</b> và <b>phép biện chứng</b> — tạo nên <b>chủ nghĩa duy vật biện chứng</b> và <b>chủ nghĩa duy vật lịch sử</b>.</p>
-      <p>Nội dung cốt lõi bạn sẽ gặp trong game gồm: <b>vật chất và ý thức</b>, <b>hai nguyên lý</b> và <b>ba quy luật</b> của phép biện chứng duy vật, <b>lý luận nhận thức và thực tiễn</b>, cùng <b>chủ nghĩa duy vật lịch sử</b> — học thuyết về hình thái kinh tế - xã hội, giai cấp, nhà nước và con người.</p>
-      <div class="intro-quote">"Học thuyết của Mác là học thuyết vạn năng vì nó là một học thuyết chính xác."<span>— V.I.Lênin, Ba nguồn gốc và ba bộ phận cấu thành của chủ nghĩa Mác (1913)</span></div>
-      <p>Triết học Mác - Lênin trang bị cho chúng ta <b>thế giới quan khoa học</b> và <b>phương pháp luận biện chứng</b> — công cụ để nhận thức và cải tạo thế giới. Giờ thì, hãy xem bạn đã nắm vững nó đến đâu! 💪</p>`
+    chapter: 0,
+    periodIndex: 1,
+    range: "1845 – 1848",
+    title: "Đề Xuất Nguyên Lý Duy Vật Biện Chứng & Duy Vật Lịch Sử",
+    image: "assets/images/ch1_1845_1848.jpg",
+    tags: ["📝 Lao Động Tha Hóa", "⚒️ Vai Trò Thực Tiễn", "📜 Tuyên Ngôn 1848"],
+    paragraphs: [
+      "C.Mác và Ph.Ăngghen tự giải phóng mình khỏi hệ thống triết học cũ để đặt <b>nền móng cho thế giới quan mới</b>.",
+      "Hàng loạt tác phẩm kinh điển ra đời: <b>Bản thảo kinh tế - triết học 1844</b> (phân tích hiện tượng lao động tha hóa), <b>Luận cương về Phoiơbắc</b> (khẳng định vai trò cải tạo thế giới của thực tiễn), và <b>Hệ tư tưởng Đức</b> — nơi quan điểm duy vật lịch sử được trình bày một cách hệ thống."
+    ],
+    quote: {
+      text: "Tuyên ngôn của Đảng Cộng sản (1848) khép lại thời kỳ đề xuất nguyên lý mới, trình bày thế giới quan Mác-xít một cách sáng sủa và hoàn chỉnh.",
+      author: "Tác phẩm kinh điển 1848"
+    },
+    takeaways: [
+      "Bản thảo KT-Triết 1844: Phân tích sâu sắc về lao động tha hóa.",
+      "Luận cương về Phoiơbắc (1845): Khẳng định thực tiễn là tiêu chuẩn của chân lý.",
+      "Hệ tư tưởng Đức (1845-1846): Trình bày có hệ thống về Duy vật lịch sử.",
+      "Tuyên ngôn của Đảng Cộng sản (1848): Trình bày thế giới quan mới hoàn chỉnh."
+    ]
   },
   {
-    step: "Phần mở đầu · 3/3",
-    title: "📜 Luật chơi",
-    html: `
-      <ul class="rule-list">
-        <li><span class="ic">🪜</span><div><b>15 câu hỏi</b> với độ khó tăng dần, tương ứng thang tiền thưởng từ <b>200.000đ</b> đến <b>150.000.000đ</b> (tiền thưởng danh dự 😄).</div></li>
-        <li><span class="ic">⏱️</span><div>Mỗi câu có <b>30 giây</b> suy nghĩ. Hết giờ mà chưa chốt đáp án, cuộc chơi kết thúc.</div></li>
-        <li><span class="ic">🛟</span><div><b>3 quyền trợ giúp</b>, mỗi quyền dùng 1 lần: <b>50:50</b> (loại 2 phương án sai), <b>📞 Gọi điện cho người thân</b>, <b>👥 Hỏi ý kiến khán giả</b>.</div></li>
-        <li><span class="ic">🛡️</span><div>Hai <b>mốc an toàn</b> tại câu 5 (2.000.000đ) và câu 10 (22.000.000đ). Trả lời sai, bạn rơi về mốc an toàn gần nhất.</div></li>
-        <li><span class="ic">🏳️</span><div>Có thể <b>dừng cuộc chơi</b> bất kỳ lúc nào để bảo toàn số tiền đang có.</div></li>
-        <li><span class="ic">📚</span><div>Sau mỗi câu đều có <b>giải thích đáp án</b> — chơi để ôn thi MLN121 luôn nhé!</div></li>
-      </ul>`
+    chapter: 0,
+    periodIndex: 2,
+    range: "1848 – 1895",
+    title: "Bổ Sung & Phát Triển Toàn Diện Lý Luận Triết Học",
+    image: "assets/images/ch1_1848_1895.jpg",
+    tags: ["📚 Bộ Tư Bản", "⚙️ Chống Đuy-rinh", "🌲 Biện Chứng Tự Nhiên"],
+    paragraphs: [
+      "Học thuyết Mác được tiếp tục bổ sung và hoàn thiện dựa trên việc <b>tổng kết thực tiễn phong trào cách mạng</b> và khái quát các phát minh khoa học tự nhiên mới.",
+      "C.Mác dành phần lớn cuộc đời để viết bộ <b>Tư bản</b> — không chỉ là kiệt tác kinh tế mà còn là sự phát triển vĩ đại về lôgíc học và triết học. Đồng thời, Ph.Ăngghen viết các tác phẩm như <i>Chống Đuy-rinh</i>, <i>Biện chứng của tự nhiên</i> và <i>Nguồn gốc của gia đình, của chế độ tư hữu và của nhà nước</i>."
+    ],
+    quote: {
+      text: "Ph.Ăngghen đã có đóng góp to lớn giúp hệ thống hóa toàn bộ học thuyết Mác thành một hệ thống lý luận hoàn chỉnh.",
+      author: "Vai trò lịch sử của Ph.Ăngghen"
+    },
+    takeaways: [
+      "Bộ Tư bản (C.Mác): Đóng góp vĩ đại về triết học duy vật biện chứng và giá trị thặng dư.",
+      "Tác phẩm của Ăngghen: Chống Đuy-rinh, Biện chứng của tự nhiên, Nguồn gốc gia đình...",
+      "Tổng kết thực tiễn phong trào công nhân & khoa học tự nhiên thế kỷ XIX."
+    ]
+  },
+  {
+    chapter: 0,
+    periodIndex: 3,
+    range: "Cuối TK XIX – 1924",
+    title: "Giai Đoạn Lênin Bảo Vệ & Phát Triển Triết Học Mác",
+    image: "assets/images/ch1_lenin.jpg",
+    tags: ["⚡ Thời Đại Đế Quốc", "🛡️ Bảo Vệ Duy Vật", "🏛️ Nhà Nước & Cách Mạng"],
+    paragraphs: [
+      "V.I.Lênin kế tục và phát triển sáng tạo triết học Mác trong bối cảnh chủ nghĩa tư bản chuyển sang giai đoạn <b>đế quốc chủ nghĩa</b> và thời kỳ quá độ lên chủ nghĩa xã hội.",
+      "Ông bảo vệ nền tảng duy vật trước sự tấn công của chủ nghĩa duy tâm qua tác phẩm <b>Chủ nghĩa duy vật và chủ nghĩa kinh nghiệm phê phán</b>; phát triển sâu sắc phép biện chứng duy vật qua <b>Bút ký triết học</b>; và lý luận nhà nước qua <b>Nhà nước và cách mạng</b> phục vụ trực tiếp cho Cách mạng Tháng Mười Nga."
+    ],
+    quote: {
+      text: "Lênin không chỉ bảo vệ triết học Mác trước khủng hoảng thế giới quan khoa học mà còn vận dụng sáng tạo vào thực tiễn xây dựng nhà nước kiểu mới.",
+      author: "Đóng góp phát triển của V.I.Lênin"
+    },
+    takeaways: [
+      "Chủ nghĩa duy vật & CN kinh nghiệm phê phán: Bảo vệ chủ nghĩa duy vật trước vật lý học hiện đại.",
+      "Bút ký triết học: Phát triển sâu sắc phép biện chứng duy vật.",
+      "Nhà nước & cách mạng: Chuẩn bị lý luận cho Cách mạng Tháng Mười Nga 1917."
+    ]
+  },
+  {
+    chapter: 0,
+    periodIndex: 4,
+    range: "1924 – Nay",
+    title: "Vận Dụng Sáng Tạo Triết Học Mác - Lênin Tại Việt Nam",
+    image: "assets/images/ch1_vietnam.jpg",
+    tags: ["🇻🇳 Vận Dụng Sáng Tạo", "🌟 Kinh Tế Thị Trường XHCN", "📜 Nhà Nước Pháp Quyền"],
+    paragraphs: [
+      "Sau khi Lênin qua đời, triết học Mác - Lênin tiếp tục được các Đảng Cộng sản trên thế giới bổ sung dựa trên thực tiễn xây dựng chủ nghĩa xã hội.",
+      "Tại Việt Nam, <b>Chủ tịch Hồ Chí Minh và Đảng Cộng sản Việt Nam</b> đã vận dụng sáng tạo lý luận Mác - Lênin vào điều kiện cụ thể: lãnh đạo cách mạng giải phóng dân tộc và thực hiện công cuộc Đổi mới với những đóng góp mới như lý luận thời kỳ quá độ, kinh tế thị trường định hướng XHCN và Nhà nước pháp quyền XHCN."
+    ],
+    quote: {
+      text: "Thực tiễn là tiêu chuẩn của chân lý. Việc vận dụng triết học Mác - Lênin tại Việt Nam luôn gắn liền với sáng tạo, tuyệt đối tránh giáo điều, máy móc.",
+      author: "Tư tưởng Hồ Chí Minh & Đường lối của Đảng"
+    },
+    takeaways: [
+      "Vận dụng sáng tạo, không máy móc giáo điều vào thực tiễn Việt Nam.",
+      "Phát triển lý luận về thời kỳ quá độ lên chủ nghĩa xã hội bỏ qua chế độ TBCN.",
+      "Xây dựng mô hình Kinh tế thị trường định hướng XHCN và Nhà nước pháp quyền."
+    ]
+  },
+
+  /* CHAPTER II: KINH TẾ VIỆT NAM QUA CÁC THỜI KỲ */
+  {
+    chapter: 1,
+    periodIndex: 0,
+    range: "Thời Kỳ Cổ Đại",
+    title: "Nền Kinh Tế Hàng Hóa Giản Đơn & Các Hình Thái Giá Trị",
+    image: "assets/images/ch2_ancient.jpg",
+    tags: ["🐚 Trao Đổi H-H", "🪙 Vật Ngang Giá Chung", "✨ Sự Ra Đời Của Tiền Tệ"],
+    paragraphs: [
+      "Ban đầu là hình thái trao đổi ngẫu nhiên <b>hàng hóa lấy hàng hóa (H-H)</b>. Theo sự phát triển của sản xuất, hình thái giá trị phát triển từ giản đơn → đầy đủ (mở rộng) → hình thái chung của giá trị (dùng vỏ sò, gia súc làm vật ngang giá chung).",
+      "Cuối cùng, <b>tiền vàng</b> ra đời làm vật ngang giá chung thống nhất. Mục đích trao đổi thời kỳ này là thu được giá trị sử dụng để thỏa mãn nhu cầu tiêu dùng trực tiếp của người sản xuất."
+    ],
+    quote: {
+      text: "Sự xuất hiện của tiền tệ là kết quả phát triển tất yếu và khách quan của quá trình sản xuất và trao đổi hàng hóa từ thời cổ đại.",
+      author: "Quy luật phát triển hình thái giá trị"
+    },
+    takeaways: [
+      "Trình tự phát triển: Giản đơn (ngẫu nhiên) → Đầy đủ → Chung → Tiền tệ.",
+      "Tiền vàng ra đời làm vật ngang giá chung thống nhất.",
+      "Mục đích chính: Thỏa mãn nhu cầu tiêu dùng trực tiếp (giá trị sử dụng)."
+    ]
+  },
+  {
+    chapter: 1,
+    periodIndex: 1,
+    range: "Thời Kỳ Thuộc Địa",
+    title: "Kinh Tế Thuộc Địa Dưới Thời Pháp Thuộc",
+    image: "assets/images/ch2_colonial.jpg",
+    tags: ["⛓️ Bất Bình Đẳng", "🚂 Khai Thác Tài Nguyên", "🌾 Nửa Phong Kiến"],
+    paragraphs: [
+      "Đây là một phần của <b>mô hình công nghiệp hóa cổ điển</b> của các nước tư bản phương Tây — bóc lột và chiếm đoạt thuộc địa để khai thác lao động giá rẻ và tài nguyên thô.",
+      "Nền kinh tế Việt Nam bị lệ thuộc hoàn toàn vào chính quốc Pháp: xuất khẩu nguyên liệu thô và nhập khẩu ngược lại hàng hóa công nghiệp chế biến từ Pháp. Quan hệ sản xuất mang tính chất hỗn hợp giữa <b>phong kiến lạc hậu</b> và <b>tư bản chủ nghĩa sơ khai</b>."
+    ],
+    quote: {
+      text: "Cấu trúc trao đổi bất bình đẳng thời thuộc địa chỉ phục vụ cho lợi ích của tầng lớp thực dân và chính quốc, không phát triển kinh tế bản địa.",
+      author: "Đặc điểm kinh tế thuộc địa"
+    },
+    takeaways: [
+      "Thuộc mô hình công nghiệp hóa cổ điển (chiếm đoạt thuộc địa).",
+      "Xuất khẩu tài nguyên thô, nhập khẩu hàng công nghiệp từ chính quốc.",
+      "Tồn tại đan xen giữa phong kiến lạc hậu và tư bản chủ nghĩa sơ khai."
+    ]
+  },
+  {
+    chapter: 1,
+    periodIndex: 2,
+    range: "Sau Năm 1954",
+    title: "Nền Kinh Tế Miền Bắc Sau Điện Biên Phủ (Mô Hình Kiểu Cũ)",
+    image: "assets/images/ch2_post1954.jpg",
+    tags: ["🏭 Công Nghiệp Nặng", "📋 Kế Hoạch Tập Trung", "🇷🇺 Mô Hình Liên Xô"],
+    paragraphs: [
+      "Từ năm <b>1960</b>, Việt Nam bắt đầu áp dụng mô hình công nghiệp hóa kiểu cũ theo kiểu Liên Xô (cũ). Nền kinh tế vận hành theo <b>cơ chế kế hoạch hóa tập trung, mệnh lệnh</b>.",
+      "Nhà nước nắm giữ và phân bổ trực tiếp các nguồn lực then chốt, ưu tiên phát triển công nghiệp nặng. Hàng hóa được phân phối theo chỉ tiêu kế hoạch thay vì quy luật cung - cầu của thị trường tự do."
+    ],
+    quote: {
+      text: "Mô hình kiểu cũ tập trung toàn bộ quyền quyết định phân bổ nguồn lực vào tay nhà nước thông qua các chỉ tiêu pháp lệnh.",
+      author: "Cơ chế kế hoạch hóa tập trung"
+    },
+    takeaways: [
+      "Bắt đầu áp dụng từ năm 1960 theo mô hình Liên Xô (cũ).",
+      "Ưu tiên phát triển công nghiệp nặng.",
+      "Phân phối hàng hóa theo chỉ tiêu kế hoạch, chưa có quy luật thị trường."
+    ]
+  },
+  {
+    chapter: 1,
+    periodIndex: 3,
+    range: "1975 – 1986",
+    title: "Thời Kỳ Bao Cấp Trên Phạm Vi Cả Nước",
+    image: "assets/images/ch2_baocap.jpg",
+    tags: ["🎫 Chế Độ Tem Phiếu", "🚫 Coi Nhẹ Tiền Tệ", "📉 Khủng Hoảng Trì Trệ"],
+    paragraphs: [
+      "Sau thống nhất đất nước 1975, mô hình kế hoạch hóa tập trung được mở rộng ra phạm vi cả nước — đây là giai đoạn đỉnh cao của <b>cơ chế bao cấp</b>.",
+      "Quan hệ hàng hóa - tiền tệ bị coi nhẹ; hàng hóa thiết yếu như gạo, vải, đường được phân phối qua <b>chế độ tem phiếu</b>. Mô hình này sau một thời gian dài đã bộc lộ sự trì trệ, khủng hoảng kinh tế, đòi hỏi phải Đổi mới."
+    ],
+    quote: {
+      text: "Chính sự trì trệ và khủng hoảng của thời kỳ bao cấp đã đặt ra yêu cầu tất yếu phải tiến hành công cuộc Đổi mới năm 1986.",
+      author: "Bài học lịch sử Đổi Mới"
+    },
+    takeaways: [
+      "Mở rộng cơ chế kế hoạch hóa tập trung trên toàn quốc sau 1975.",
+      "Phân phối sản phẩm qua chế độ tem phiếu, coi nhẹ quan hệ hàng hóa - tiền tệ.",
+      "Dẫn đến trì trệ và khủng hoảng, tạo tiền đề tất yếu cho công cuộc Đổi mới."
+    ]
+  },
+  {
+    chapter: 1,
+    periodIndex: 4,
+    range: "1986 – Nay",
+    title: "Thời Kỳ Đổi Mới & Kinh Tế Thị Trường Định Hướng XHCN",
+    image: "assets/images/ch2_doimoi.jpg",
+    tags: ["🌐 Kinh Tế Thị Trường", "💳 Thanh Toán 4.0", "🤝 Hội Nhập Quốc Tế"],
+    paragraphs: [
+      "Khởi xướng từ <b>Đại hội VI (12/1986)</b>, Việt Nam chuyển sang phát triển nền kinh tế thị trường định hướng xã hội chủ nghĩa, vận hành theo các quy luật khách quan như quy luật giá trị, cung - cầu, cạnh tranh.",
+      "Hiện nay, Việt Nam đẩy mạnh Công nghiệp hóa 4.0 dựa trên tri thức, dữ liệu, IoT; thanh toán không dùng tiền mặt phát triển mạnh (tiền ghi sổ, tài khoản, tiền điện tử); hội nhập sâu rộng qua WTO, ASEAN, APEC. Nhà nước đóng vai trò <b>điều tiết, kiến tạo môi trường</b>."
+    ],
+    quote: {
+      text: "Nhà nước không quản lý trực tiếp bằng mệnh lệnh hành chính mà kiến tạo môi trường cho các thành phần kinh tế cùng phát triển bình đẳng.",
+      author: "Mô hình kinh tế hiện đại Việt Nam"
+    },
+    takeaways: [
+      "Đại hội VI (1986): Khởi xướng công cuộc Đổi mới toàn diện.",
+      "Vận hành theo quy luật thị trường: Quy luật giá trị, cung - cầu, cạnh tranh.",
+      "Đa dạng công cụ thanh toán: Tiền ghi sổ, chuyển khoản, tiền điện tử.",
+      "Nhà nước quản lý vĩ mô, điều tiết kiến tạo thay cho mệnh lệnh bao cấp."
+    ]
   }
 ];
 
-/* ===================== STATE ===================== */
+/* =========================================================
+   2. STATE MANAGEMENT & WEB AUDIO SYSTEM
+   ========================================================= */
+let currentChapter = 0;
+let currentNotebookIndex = 0;
+
 let gameQuestions = [];
-let currentIndex = 0;
-let selectedAnswer = -1;
-let locked = false;
-let timerId = null;
-let timeLeft = TIME_PER_QUESTION;
-let lifelines = { fifty: true, phone: true, audience: true };
-let hiddenAnswers = [];
-let introIndex = 0;
+let currentQuestionIndex = 0;
+let selectedAnswerIndex = -1;
+let isAnswerLocked = false;
+let gameTimerId = null;
+let secondsRemaining = QUESTION_TIMEOUT;
 
-const $ = (id) => document.getElementById(id);
+let availableLifelines = { fifty: true, phone: true, audience: true, switch: true };
+let hiddenAnswerIndices = [];
+let isSoundEnabled = true;
 
-function shuffle(arr) {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
+/* WebAudio Sound Effects Synthesizer */
+let audioCtx = null;
+function playSound(freq, duration, type = "sine", volume = 0.12) {
+  if (!isSoundEnabled) return;
+  try {
+    audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state === 'suspended') { audioCtx.resume(); }
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = type;
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(volume, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + duration);
+  } catch(e) {}
 }
 
-/* Trộn cả thứ tự đáp án trong từng câu */
-function prepQuestion(raw) {
-  const order = shuffle([0, 1, 2, 3]);
+function soundClick() { playSound(600, 0.08, "sine", 0.1); }
+function soundSelect() { playSound(480, 0.12, "square", 0.08); }
+function soundCorrect() {
+  [523, 659, 784, 1047].forEach((f, i) => setTimeout(() => playSound(f, 0.2, "triangle", 0.14), i * 100));
+}
+function soundWrong() {
+  [310, 240, 180].forEach((f, i) => setTimeout(() => playSound(f, 0.28, "sawtooth", 0.12), i * 130));
+}
+function soundWinFanfare() {
+  [523, 659, 784, 1047, 1319, 1568].forEach((f, i) => setTimeout(() => playSound(f, 0.35, "triangle", 0.16), i * 120));
+}
+function soundTick() { playSound(800, 0.04, "square", 0.04); }
+
+function toggleSound() {
+  isSoundEnabled = !isSoundEnabled;
+  document.getElementById("sound-icon").textContent = isSoundEnabled ? "🔊" : "🔇";
+  document.getElementById("sound-label").textContent = isSoundEnabled ? "Bật Âm Thanh" : "Tắt Âm Thanh";
+  if (isSoundEnabled) soundClick();
+}
+
+/* Helper DOM selector */
+const $ = id => document.getElementById(id);
+
+function showScreen(screenId) {
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+  const target = $(screenId);
+  target.classList.add("active");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function goHome() {
+  clearInterval(gameTimerId);
+  soundClick();
+  showScreen("screen-start");
+}
+
+/* =========================================================
+   3. NOTEBOOK ("SỔ TAY KIẾN THỨC") RENDERER
+   ========================================================= */
+function openNotebook(index) {
+  soundClick();
+  currentNotebookIndex = Math.max(0, Math.min(index, NOTEBOOK_DATABASE.length - 1));
+  const data = NOTEBOOK_DATABASE[currentNotebookIndex];
+  currentChapter = data.chapter;
+
+  updateNotebookTabsUI();
+  renderNotebookPage(data);
+  showScreen("screen-notebook");
+}
+
+function switchChapter(chIndex) {
+  soundClick();
+  currentChapter = chIndex;
+  const firstIdx = NOTEBOOK_DATABASE.findIndex(item => item.chapter === chIndex);
+  openNotebook(firstIdx);
+}
+
+function updateNotebookTabsUI() {
+  $("tab-ch-0").classList.toggle("active", currentChapter === 0);
+  $("tab-ch-1").classList.toggle("active", currentChapter === 1);
+}
+
+function renderNotebookPage(data) {
+  const chapterPeriods = NOTEBOOK_DATABASE.filter(item => item.chapter === data.chapter);
+  const posInChapter = chapterPeriods.indexOf(data);
+
+  /* Build Timeline Dots */
+  const timelineHtml = chapterPeriods.map((_, idx) => {
+    let cls = "timeline-dot";
+    if (idx === posInChapter) cls += " active";
+    else if (idx < posInChapter) cls += " passed";
+    const absoluteIdx = NOTEBOOK_DATABASE.findIndex(item => item.chapter === data.chapter && chapterPeriods.indexOf(item) === idx);
+    return `<div class="${cls}" title="Mục ${idx + 1}" onclick="openNotebook(${absoluteIdx})"></div>` + 
+           (idx < chapterPeriods.length - 1 ? `<div class="timeline-line"></div>` : "");
+  }).join("");
+
+  const isLastPage = currentNotebookIndex === NOTEBOOK_DATABASE.length - 1;
+
+  const html = `
+    <div class="notebook-page-card ${data.chapter === 1 ? "ch-1" : ""}">
+      
+      <!-- Top Meta Bar -->
+      <div class="nb-page-header">
+        <div class="nb-header-left">
+          <span class="badge-chapter">Chương ${data.chapter === 0 ? "I" : "II"} · Mục ${posInChapter + 1}/5</span>
+          <span class="badge-timeline-range">${data.range}</span>
+        </div>
+        <span class="nb-page-num">Trang ${currentNotebookIndex + 1} / ${NOTEBOOK_DATABASE.length}</span>
+      </div>
+
+      <!-- Banner Image -->
+      <div class="nb-banner-container">
+        <img src="${data.image}" alt="${data.title}">
+        <div class="nb-banner-gradient"></div>
+      </div>
+
+      <!-- Content Body -->
+      <div class="nb-content-body">
+        <h2 class="nb-period-title">${data.title}</h2>
+
+        <!-- Concept Badges -->
+        <div class="concept-tags-group">
+          ${data.tags.map(tag => `<span class="concept-tag">${tag}</span>`).join("")}
+        </div>
+
+        <!-- Paragraphs -->
+        ${data.paragraphs.map(p => `<p class="nb-paragraph">${p}</p>`).join("")}
+
+        <!-- Quote Card -->
+        ${data.quote ? `
+          <div class="nb-quote-card">
+            <div class="nb-quote-text">"${data.quote.text}"</div>
+            <div class="nb-quote-author"><span>—</span> ${data.quote.author}</div>
+          </div>
+        ` : ""}
+
+        <!-- Takeaways Box -->
+        <div class="nb-takeaways-box">
+          <div class="takeaway-header">📌 Trọng Tâm Kiến Thức Cần Nhớ (Phục Vụ Ôn Thi & Game)</div>
+          <ul class="takeaway-list">
+            ${data.takeaways.map(t => `<li class="takeaway-item"><span class="bullet">✦</span> <div>${t}</div></li>`).join("")}
+          </ul>
+        </div>
+      </div>
+
+      <!-- Timeline Indicator -->
+      <div class="nb-timeline-steps">
+        ${timelineHtml}
+      </div>
+
+    </div>
+
+    <!-- Navigation Footer -->
+    <div class="nb-nav-footer">
+      <button class="btn-nb-nav" onclick="${currentNotebookIndex === 0 ? "goHome()" : `openNotebook(${currentNotebookIndex - 1})`}">
+        ← ${currentNotebookIndex === 0 ? "Trang Chủ" : "Thời Kỳ Trước"}
+      </button>
+
+      <button class="btn-nb-nav primary" onclick="${isLastPage ? "startGame()" : `openNotebook(${currentNotebookIndex + 1})`}">
+        ${isLastPage ? "🚀 Đã Thuộc Bài! Chiến Game Ngay" : "Thời Kỳ Tiếp Theo →"}
+      </button>
+    </div>
+  `;
+
+  $("notebook-page-viewport").innerHTML = html;
+}
+
+/* =========================================================
+   4. GAME SYSTEM ("AI LÀ TRIỆU PHÚ")
+   ========================================================= */
+const HOST_COMMENTARIES = [
+  "Câu hỏi khởi động nhẹ nhàng thôi. Bạn tự tin chứ? 😉",
+  "Suy nghĩ kỹ nhé, chưa chốt là chưa mất gì cả!",
+  "Khán giả trong trường quay đang rất hồi hộp dõi theo bạn...",
+  "Một câu hỏi rất hay về kiến thức lịch sử & kinh tế!",
+  "Đừng quên bạn vẫn còn những quyền trợ giúp đắc lực đấy nhé.",
+  "Bình tĩnh, hít thở sâu và dùng phương pháp loại trừ biện chứng nào!",
+  "Số tiền thưởng đang tăng lên đáng kể! Cẩn thận từng chữ trong câu hỏi.",
+  "Bạn đang tiến rất gần tới các mốc vinh quang rồi đấy!"
+];
+
+function shuffleArray(arr) {
+  const copy = [...arr];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+
+function prepareQuestion(rawQ) {
+  const shuffledOrder = shuffleArray([0, 1, 2, 3]);
   return {
-    q: raw.q,
-    a: order.map(i => raw.a[i]),
-    c: order.indexOf(raw.c),
-    e: raw.e
+    q: rawQ.q,
+    a: shuffledOrder.map(idx => rawQ.a[idx]),
+    c: shuffledOrder.indexOf(rawQ.c),
+    e: rawQ.e
   };
 }
 
-function buildQuestionSet() {
-  return [
-    ...shuffle(EASY).slice(0, 5),
-    ...shuffle(MEDIUM).slice(0, 5),
-    ...shuffle(HARD).slice(0, 5)
-  ].map(prepQuestion);
+function buildGameQuestionSet() {
+  const easySet = shuffleArray(QUESTION_BANK.easy).slice(0, 5).map(prepareQuestion);
+  const mediumSet = shuffleArray(QUESTION_BANK.medium).slice(0, 5).map(prepareQuestion);
+  const hardSet = shuffleArray(QUESTION_BANK.hard).slice(0, 5).map(prepareQuestion);
+  return [...easySet, ...mediumSet, ...hardSet];
 }
-
-/* ===================== NAVIGATION ===================== */
-function showScreen(id) {
-  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
-  $(id).classList.add("active");
-  window.scrollTo(0, 0);
-}
-function goHome() { clearInterval(timerId); showScreen("screen-start"); }
-
-/* ===================== INTRO ===================== */
-function showIntro(i) {
-  introIndex = i;
-  const s = INTRO_SLIDES[i];
-  const dots = INTRO_SLIDES.map((_, k) => `<i class="${k === i ? "on" : ""}"></i>`).join("");
-  const isLast = i === INTRO_SLIDES.length - 1;
-  $("intro-card").innerHTML = `
-    <div class="intro-step">${s.step}</div>
-    <h2>${s.title}</h2>
-    ${s.html}
-    <div class="intro-nav">
-      <button class="btn ghost" onclick="${i === 0 ? "goHome()" : `showIntro(${i - 1})`}">← ${i === 0 ? "Trang chủ" : "Quay lại"}</button>
-      <div class="dots">${dots}</div>
-      <button class="btn ${isLast ? "gold" : ""}" onclick="${isLast ? "startGame()" : `showIntro(${i + 1})`}">${isLast ? "🎮 Bắt đầu chơi!" : "Tiếp theo →"}</button>
-    </div>`;
-  showScreen("screen-intro");
-  playTone(isLast ? 520 : 440, .08);
-}
-
-/* ===================== SOUND (WebAudio, không cần file) ===================== */
-let audioCtx = null;
-function playTone(freq, dur, type = "sine", vol = 0.12) {
-  try {
-    audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
-    const o = audioCtx.createOscillator(), g = audioCtx.createGain();
-    o.type = type; o.frequency.value = freq;
-    g.gain.setValueAtTime(vol, audioCtx.currentTime);
-    g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur);
-    o.connect(g); g.connect(audioCtx.destination);
-    o.start(); o.stop(audioCtx.currentTime + dur);
-  } catch (e) { /* âm thanh không khả dụng */ }
-}
-function soundCorrect() { [523, 659, 784, 1047].forEach((f, i) => setTimeout(() => playTone(f, .22, "triangle", .14), i * 110)); }
-function soundWrong() { [330, 262, 196].forEach((f, i) => setTimeout(() => playTone(f, .3, "sawtooth", .09), i * 140)); }
-function soundWin() { [523, 659, 784, 1047, 1319, 1568].forEach((f, i) => setTimeout(() => playTone(f, .3, "triangle", .14), i * 130)); }
-
-/* ===================== GAME ===================== */
-const HOST_LINES = [
-  "Câu hỏi khởi động nhẹ nhàng thôi. Bạn tự tin chứ? 😉",
-  "Suy nghĩ kỹ nhé, chưa chốt là chưa mất gì cả!",
-  "Nghe câu hỏi này, khán giả trường quay đang rất hồi hộp...",
-  "Một câu hỏi rất hay! Các Mác mà nghe được chắc cũng gật gù.",
-  "Bạn còn quyền trợ giúp đấy, đừng quên nhé!",
-  "Bình tĩnh. Hít thở sâu. Biện chứng mà suy luận nào!",
-  "Câu này từng loại rất nhiều người chơi đấy nhé...",
-  "Số tiền đang lớn dần rồi. Cẩn thận từng chữ trong câu hỏi!",
-];
 
 function startGame() {
-  gameQuestions = buildQuestionSet();
-  currentIndex = 0;
-  lifelines = { fifty: true, phone: true, audience: true };
-  ["ll-5050", "ll-phone", "ll-audience"].forEach(id => $(id).classList.remove("used"));
-  buildLadder();
+  soundClick();
+  gameQuestions = buildGameQuestionSet();
+  currentQuestionIndex = 0;
+  availableLifelines = { fifty: true, phone: true, audience: true, switch: true };
+  
+  ["ll-5050", "ll-phone", "ll-audience", "ll-switch"].forEach(id => $(id).classList.remove("used"));
+
+  renderMoneyLadder();
   showScreen("screen-game");
   renderQuestion();
 }
 
-function buildLadder() {
-  $("ladder").innerHTML = PRIZES.map((p, i) => `
-    <div class="rung ${MILESTONES.includes(i) ? "milestone" : ""}" id="rung-${i}">
-      <span class="n">${i + 1}</span><span>${p} đ</span>
-    </div>`).join("");
+function renderMoneyLadder() {
+  $("ladder-sidebar").innerHTML = PRIZE_SCALE.map((prize, idx) => {
+    const isMilestone = SAFE_MILESTONES.includes(idx);
+    return `
+      <div class="ladder-rung ${isMilestone ? "milestone" : ""}" id="ladder-rung-${idx}">
+        <span class="rung-num">${idx + 1}</span>
+        <span>${prize} đ ${isMilestone ? "🛡️" : ""}</span>
+      </div>
+    `;
+  }).join("");
 }
 
-function updateLadder() {
-  PRIZES.forEach((_, i) => {
-    const r = $("rung-" + i);
-    r.classList.toggle("current", i === currentIndex);
-    r.classList.toggle("passed", i < currentIndex);
+function updateMoneyLadderUI() {
+  PRIZE_SCALE.forEach((_, idx) => {
+    const rung = $("ladder-rung-" + idx);
+    rung.classList.toggle("current", idx === currentQuestionIndex);
+    rung.classList.toggle("passed", idx < currentQuestionIndex);
   });
 }
 
 function renderQuestion() {
-  const item = gameQuestions[currentIndex];
-  selectedAnswer = -1; locked = false; hiddenAnswers = [];
-  $("q-counter").textContent = `Câu ${currentIndex + 1} · ${PRIZES[currentIndex]} đ`;
-  $("host-msg").textContent = HOST_LINES[Math.floor(Math.random() * HOST_LINES.length)];
-  $("question-text").textContent = item.q;
-  $("answers").innerHTML = item.a.map((t, i) => `
-    <button class="answer" id="ans-${i}" onclick="pickAnswer(${i})">
-      <span class="key">${"ABCD"[i]}:</span>${t}
-    </button>`).join("");
-  updateLadder();
-  startTimer();
+  const qItem = gameQuestions[currentQuestionIndex];
+  selectedAnswerIndex = -1;
+  isAnswerLocked = false;
+  hiddenAnswerIndices = [];
+
+  $("q-counter-badge").innerHTML = `Câu ${currentQuestionIndex + 1} <span>· ${PRIZE_SCALE[currentQuestionIndex]} đ</span>`;
+  $("host-speech-text").textContent = HOST_COMMENTARIES[Math.floor(Math.random() * HOST_COMMENTARIES.length)];
+  $("question-text-box").textContent = qItem.q;
+
+  const keyLabels = ["A", "B", "C", "D"];
+  $("answers-grid").innerHTML = qItem.a.map((text, idx) => `
+    <button class="btn-answer" id="ans-btn-${idx}" onclick="handleSelectAnswer(${idx})">
+      <span class="ans-key">${keyLabels[idx]}:</span> ${text}
+    </button>
+  `).join("");
+
+  updateMoneyLadderUI();
+  resetAndStartTimer();
 }
 
-function startTimer() {
-  clearInterval(timerId);
-  timeLeft = TIME_PER_QUESTION;
-  const t = $("timer");
-  t.textContent = timeLeft; t.classList.remove("warn");
-  timerId = setInterval(() => {
-    timeLeft--;
-    t.textContent = timeLeft;
-    if (timeLeft <= 10) { t.classList.add("warn"); if (timeLeft > 0) playTone(700, .06, "square", .05); }
-    if (timeLeft <= 0) { clearInterval(timerId); timeUp(); }
+function resetAndStartTimer() {
+  clearInterval(gameTimerId);
+  secondsRemaining = QUESTION_TIMEOUT;
+  
+  const timerText = $("timer-number");
+  const timerCircle = $("timer-circle");
+  const timerBox = $("timer-box");
+
+  timerText.textContent = secondsRemaining;
+  timerCircle.style.strokeDashoffset = 0;
+  timerBox.classList.remove("warn");
+
+  const totalDash = 226;
+
+  gameTimerId = setInterval(() => {
+    secondsRemaining--;
+    timerText.textContent = secondsRemaining;
+    
+    const offset = totalDash - (secondsRemaining / QUESTION_TIMEOUT) * totalDash;
+    timerCircle.style.strokeDashoffset = offset;
+
+    if (secondsRemaining <= 10) {
+      timerBox.classList.add("warn");
+      soundTick();
+    }
+
+    if (secondsRemaining <= 0) {
+      clearInterval(gameTimerId);
+      handleTimeOut();
+    }
   }, 1000);
 }
 
-function pickAnswer(i) {
-  if (locked || hiddenAnswers.includes(i)) return;
-  selectedAnswer = i;
-  document.querySelectorAll(".answer").forEach(a => a.classList.remove("selected"));
-  $("ans-" + i).classList.add("selected");
-  playTone(600, .1, "square", .08);
+function handleSelectAnswer(ansIdx) {
+  if (isAnswerLocked || hiddenAnswerIndices.includes(ansIdx)) return;
+  soundSelect();
+  selectedAnswerIndex = ansIdx;
+
+  document.querySelectorAll(".btn-answer").forEach(btn => btn.classList.remove("selected"));
+  $("ans-btn-" + ansIdx).classList.add("selected");
+
+  const qItem = gameQuestions[currentQuestionIndex];
+  const keys = ["A", "B", "C", "D"];
+
   openModal(`
-    <h3>Chốt đáp án?</h3>
-    <p>Bạn chọn phương án <b style="color:var(--gold)">${"ABCD"[i]}</b>:<br>"${gameQuestions[currentIndex].a[i]}"</p>
-    <p style="color:#9fb4e8">Đây có phải là câu trả lời cuối cùng của bạn?</p>
-    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-      <button class="btn gold" onclick="closeModal();lockAnswer()">✔️ Chốt!</button>
-      <button class="btn ghost" onclick="closeModal();unselect()">Suy nghĩ thêm</button>
-    </div>`);
+    <div class="modal-title">Chốt Đáp Án?</div>
+    <p class="modal-text">
+      Bạn chọn phương án <b style="color:var(--gold-2)">${keys[ansIdx]}</b>:<br>"${qItem.a[ansIdx]}"
+    </p>
+    <p style="color:var(--slate-400); font-size:14px;">Đây có phải là câu trả lời cuối cùng của bạn?</p>
+    <div style="display:flex; gap:12px; justify-content:center; margin-top:20px;">
+      <button class="btn-hero-primary" style="padding:10px 28px; font-size:15px;" onclick="closeModal();confirmAnswer()">✔️ Chốt!</button>
+      <button class="btn-hero-secondary" style="padding:10px 24px; font-size:15px;" onclick="closeModal();unselectAnswer()">Suy nghĩ thêm</button>
+    </div>
+  `);
 }
 
-function unselect() {
-  selectedAnswer = -1;
-  document.querySelectorAll(".answer").forEach(a => a.classList.remove("selected"));
+function unselectAnswer() {
+  selectedAnswerIndex = -1;
+  document.querySelectorAll(".btn-answer").forEach(btn => btn.classList.remove("selected"));
 }
 
-function lockAnswer() {
-  if (selectedAnswer < 0 || locked) return;
-  locked = true;
-  clearInterval(timerId);
-  document.querySelectorAll(".answer").forEach(a => a.classList.add("disabled"));
-  const item = gameQuestions[currentIndex];
-  /* hiệu ứng hồi hộp */
-  $("host-msg").textContent = "Và câu trả lời chính xác là... 🥁";
-  playTone(200, 1.4, "sine", .07);
+function confirmAnswer() {
+  if (selectedAnswerIndex < 0 || isAnswerLocked) return;
+  isAnswerLocked = true;
+  clearInterval(gameTimerId);
+
+  document.querySelectorAll(".btn-answer").forEach(btn => btn.classList.add("disabled"));
+  $("host-speech-text").innerHTML = "Và câu trả lời chính xác là... 🥁";
+
+  playSound(220, 1.2, "sine", 0.08);
+
   setTimeout(() => {
-    const correct = selectedAnswer === item.c;
-    $("ans-" + item.c).classList.add("correct");
-    if (!correct) $("ans-" + selectedAnswer).classList.add("wrong");
-    if (correct) { soundCorrect(); } else { soundWrong(); }
-    setTimeout(() => (correct ? onCorrect(item) : onWrong(item)), 1200);
+    const qItem = gameQuestions[currentQuestionIndex];
+    const isCorrect = selectedAnswerIndex === qItem.c;
+
+    $("ans-btn-" + qItem.c).classList.add("correct");
+    if (!isCorrect) {
+      $("ans-btn-" + selectedAnswerIndex).classList.add("wrong");
+      soundWrong();
+    } else {
+      soundCorrect();
+    }
+
+    setTimeout(() => {
+      if (isCorrect) {
+        handleCorrectAnswer(qItem);
+      } else {
+        handleWrongAnswer(qItem);
+      }
+    }, 1400);
   }, 1600);
 }
 
-function onCorrect(item) {
-  const wonAll = currentIndex === PRIZES.length - 1;
+function handleCorrectAnswer(qItem) {
+  const isFinalWin = currentQuestionIndex === PRIZE_SCALE.length - 1;
+  const prizeStr = PRIZE_SCALE[currentQuestionIndex];
+
   openModal(`
-    <h3>🎉 Chính xác!</h3>
-    <p>Bạn đã vượt qua <b>câu ${currentIndex + 1}</b> và đang có <b style="color:var(--gold)">${PRIZES[currentIndex]} đ</b>!</p>
-    <p style="font-size:14.5px;color:#9fb4e8;text-align:left"><b style="color:var(--gold)">💡 Giải thích:</b> ${item.e}</p>
-    <button class="btn gold" onclick="closeModal();${wonAll ? "endGame('win')" : "nextQuestion()"}">${wonAll ? "🏆 Nhận giải thưởng!" : "Câu tiếp theo →"}</button>`);
+    <div class="modal-title">🎉 CHÍNH XÁC HOÀN HẢO!</div>
+    <p class="modal-text">
+      Bạn đã chinh phục thành công <b>Câu ${currentQuestionIndex + 1}</b> và nâng mức thưởng lên <b style="color:var(--gold-2)">${prizeStr} đ</b>!
+    </p>
+    <div class="nb-takeaways-box" style="text-align:left; margin-bottom:20px;">
+      <div class="takeaway-header">💡 Giải Thích Tri Thức:</div>
+      <div style="color:var(--slate-300); font-size:14.5px; line-height:1.6;">${qItem.e}</div>
+    </div>
+    <button class="btn-hero-primary" style="margin:0 auto; padding:12px 32px;" onclick="closeModal();${isFinalWin ? "endGame('win')" : "advanceNextQuestion()"}">
+      ${isFinalWin ? "🏆 Nhận Ngai Vàng Triệu Phú!" : "Câu Tiếp Theo →"}
+    </button>
+  `);
 }
 
-function onWrong(item) {
+function handleWrongAnswer(qItem) {
+  const keys = ["A", "B", "C", "D"];
   openModal(`
-    <h3>😢 Rất tiếc!</h3>
-    <p>Đáp án đúng là <b style="color:var(--green)">${"ABCD"[item.c]}: ${item.a[item.c]}</b></p>
-    <p style="font-size:14.5px;color:#9fb4e8;text-align:left"><b style="color:var(--gold)">💡 Giải thích:</b> ${item.e}</p>
-    <button class="btn" onclick="closeModal();endGame('lose')">Xem kết quả</button>`);
+    <div class="modal-title" style="color:var(--red-1);">😢 RẤT TIẾC! CHƯA CHÍNH XÁC</div>
+    <p class="modal-text">
+      Đáp án đúng là <b style="color:var(--green-1)">${keys[qItem.c]}: ${qItem.a[qItem.c]}</b>
+    </p>
+    <div class="nb-takeaways-box" style="text-align:left; margin-bottom:20px;">
+      <div class="takeaway-header">💡 Giải Thích Tri Thức:</div>
+      <div style="color:var(--slate-300); font-size:14.5px; line-height:1.6;">${qItem.e}</div>
+    </div>
+    <button class="btn-hero-secondary" style="margin:0 auto; padding:12px 32px;" onclick="closeModal();endGame('lose')">
+      Xem Tổng Kết
+    </button>
+  `);
 }
 
-function timeUp() {
-  locked = true;
-  document.querySelectorAll(".answer").forEach(a => a.classList.add("disabled"));
-  const item = gameQuestions[currentIndex];
-  $("ans-" + item.c).classList.add("correct");
+function handleTimeOut() {
+  isAnswerLocked = true;
+  document.querySelectorAll(".btn-answer").forEach(btn => btn.classList.add("disabled"));
+  
+  const qItem = gameQuestions[currentQuestionIndex];
+  $("ans-btn-" + qItem.c).classList.add("correct");
   soundWrong();
+
+  const keys = ["A", "B", "C", "D"];
   openModal(`
-    <h3>⏰ Hết giờ!</h3>
-    <p>Thời gian đã hết. Đáp án đúng là <b style="color:var(--green)">${"ABCD"[item.c]}: ${item.a[item.c]}</b></p>
-    <p style="font-size:14.5px;color:#9fb4e8;text-align:left"><b style="color:var(--gold)">💡 Giải thích:</b> ${item.e}</p>
-    <button class="btn" onclick="closeModal();endGame('lose')">Xem kết quả</button>`);
+    <div class="modal-title" style="color:var(--red-1);">⏰ ĐÃ HẾT GIỜ!</div>
+    <p class="modal-text">
+      Thời gian suy nghĩ đã hết. Đáp án đúng là <b style="color:var(--green-1)">${keys[qItem.c]}: ${qItem.a[qItem.c]}</b>
+    </p>
+    <div class="nb-takeaways-box" style="text-align:left; margin-bottom:20px;">
+      <div class="takeaway-header">💡 Giải Thích Tri Thức:</div>
+      <div style="color:var(--slate-300); font-size:14.5px; line-height:1.6;">${qItem.e}</div>
+    </div>
+    <button class="btn-hero-secondary" style="margin:0 auto; padding:12px 32px;" onclick="closeModal();endGame('lose')">
+      Xem Tổng Kết
+    </button>
+  `);
 }
 
-function nextQuestion() {
-  currentIndex++;
+function advanceNextQuestion() {
+  currentQuestionIndex++;
   renderQuestion();
 }
 
 function walkAway() {
-  if (locked) return;
-  clearInterval(timerId);
-  const current = currentIndex === 0 ? "0" : PRIZES[currentIndex - 1];
+  if (isAnswerLocked) return;
+  clearInterval(gameTimerId);
+  soundClick();
+
+  const currentPrize = currentQuestionIndex === 0 ? "0" : PRIZE_SCALE[currentQuestionIndex - 1];
+
   openModal(`
-    <h3>🏳️ Dừng cuộc chơi?</h3>
-    <p>Nếu dừng ngay bây giờ, bạn sẽ ra về với <b style="color:var(--gold)">${current} đ</b>.</p>
-    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-      <button class="btn gold" onclick="closeModal();endGame('walk')">Dừng lại</button>
-      <button class="btn ghost" onclick="closeModal();startTimer()">Chơi tiếp!</button>
-    </div>`);
+    <div class="modal-title">🏳️ DỪNG CUỘC CHƠI?</div>
+    <p class="modal-text">
+      Nếu chọn dừng cuộc chơi bây giờ, bạn sẽ bảo toàn số tiền thưởng là <b style="color:var(--gold-2)">${currentPrize} đ</b>.
+    </p>
+    <div style="display:flex; gap:12px; justify-content:center; margin-top:20px;">
+      <button class="btn-hero-primary" style="padding:10px 28px; font-size:15px;" onclick="closeModal();endGame('walk')">Dừng Lại</button>
+      <button class="btn-hero-secondary" style="padding:10px 24px; font-size:15px;" onclick="closeModal();resetAndStartTimer()">Tiếp Tục Chơi!</button>
+    </div>
+  `);
 }
 
-/* ===================== LIFELINES ===================== */
+/* =========================================================
+   5. LIFELINES (TRỢ GIÚP)
+   ========================================================= */
 function use5050() {
-  if (!lifelines.fifty || locked) return;
-  lifelines.fifty = false;
+  if (!availableLifelines.fifty || isAnswerLocked) return;
+  soundClick();
+  availableLifelines.fifty = false;
   $("ll-5050").classList.add("used");
-  const item = gameQuestions[currentIndex];
-  const wrongs = shuffle([0, 1, 2, 3].filter(i => i !== item.c)).slice(0, 2);
-  hiddenAnswers = wrongs;
-  wrongs.forEach(i => $("ans-" + i).classList.add("hidden-a"));
-  if (wrongs.includes(selectedAnswer)) unselect();
-  playTone(880, .18, "triangle");
-  $("host-msg").textContent = "Máy tính đã loại bỏ 2 phương án sai. Còn lại 2 lựa chọn thôi!";
+
+  const qItem = gameQuestions[currentQuestionIndex];
+  const wrongIndices = shuffleArray([0, 1, 2, 3].filter(i => i !== qItem.c)).slice(0, 2);
+  hiddenAnswerIndices = wrongIndices;
+
+  wrongIndices.forEach(idx => {
+    $("ans-btn-" + idx).classList.add("hidden-ans");
+  });
+
+  if (wrongIndices.includes(selectedAnswerIndex)) {
+    unselectAnswer();
+  }
+
+  $("host-speech-text").textContent = "Máy tính đã loại bỏ 2 phương án sai. Bạn chỉ còn lại 50% sự lựa chọn thôi!";
 }
 
-const FRIENDS = [
-  { name: "bạn cùng lớp học giỏi nhất", conf: ["Tớ chắc chắn 100% luôn", "Cái này thầy vừa ôn tuần trước mà", "Tin tớ đi"] },
-  { name: "anh sinh viên năm cuối từng được A+ môn Triết", conf: ["Anh nhớ rõ trong giáo trình", "Câu này kinh điển lắm", "Anh từng thi đúng câu này"] },
-  { name: "cô giáo dạy Triết hồi cấp ba", conf: ["Cô nghĩ chắc chắn là", "Trong sách giáo khoa có ghi", "Cô tin là"] },
+const FRIEND_HELPERS = [
+  { name: "bạn cùng lớp chuyên Triết", quotes: ["Tớ dám chắc 100% luôn!", "Bài này thầy vừa nhấn mạnh tuần trước đấy.", "Tin tớ đi, chuẩn xác!"] },
+  { name: "anh khóa trên đạt A+ môn MLN122", quotes: ["Anh nhớ rất kĩ trong giáo trình.", "Câu này nằm ở phần trọng tâm đấy.", "Chọn phương án này không sai đâu!"] },
+  { name: "giảng viên cố vấn học tập", quotes: ["Thầy khuyên em chọn phương án này.", "Dựa theo lý luận Mác - Lênin thì đây là đáp án.", "Em xem lại dòng đầu của mục tương ứng nhé."] }
 ];
 
 function usePhone() {
-  if (!lifelines.phone || locked) return;
-  lifelines.phone = false;
+  if (!availableLifelines.phone || isAnswerLocked) return;
+  soundClick();
+  availableLifelines.phone = false;
   $("ll-phone").classList.add("used");
-  clearInterval(timerId);
-  const item = gameQuestions[currentIndex];
-  const friend = FRIENDS[Math.floor(Math.random() * FRIENDS.length)];
-  /* người thân đúng ~80%, câu khó thì kém chắc chắn hơn */
-  const reliability = currentIndex < 5 ? 0.92 : currentIndex < 10 ? 0.8 : 0.68;
-  const options = [0, 1, 2, 3].filter(i => !hiddenAnswers.includes(i));
-  const guess = Math.random() < reliability ? item.c : shuffle(options.filter(i => i !== item.c))[0] ?? item.c;
-  const phrase = friend.conf[Math.floor(Math.random() * friend.conf.length)];
-  playTone(440, .15); setTimeout(() => playTone(440, .15), 350);
+  clearInterval(gameTimerId);
+
+  const qItem = gameQuestions[currentQuestionIndex];
+  const helper = FRIEND_HELPERS[Math.floor(Math.random() * FRIEND_HELPERS.length)];
+  
+  const isCorrectGuess = Math.random() < 0.82;
+  const validIndices = [0, 1, 2, 3].filter(i => !hiddenAnswerIndices.includes(i));
+  const suggestedIndex = isCorrectGuess ? qItem.c : (validIndices.find(i => i !== qItem.c) ?? qItem.c);
+
+  const keys = ["A", "B", "C", "D"];
+  const quoteText = helper.quotes[Math.floor(Math.random() * helper.quotes.length)];
+
   openModal(`
-    <h3>📞 Gọi điện cho người thân</h3>
-    <p>Bạn gọi cho <b>${friend.name}</b>...</p>
-    <div class="phone-quote">"Alo! Ừ ừ, để nghe câu hỏi nào... ${phrase}, đáp án là <b style="color:var(--gold);font-size:20px">${"ABCD"[guess]}</b> đó!"</div>
-    <p style="font-size:13px;color:#9fb4e8;margin-top:10px">(Người thân cũng có thể nhầm đấy nhé 😅)</p>
-    <button class="btn gold" onclick="closeModal();startTimer()">Cảm ơn, tiếp tục!</button>`);
+    <div class="modal-title">📞 GỌI ĐIỆN CHO NGƯỜI THÂN</div>
+    <p class="modal-text">Bạn đang thực hiện cuộc gọi tới <b>${helper.name}</b>...</p>
+    <div class="phone-speech-card">
+      "Alo! Để nghe câu hỏi nào... ${quoteText} Đáp án chính xác là <b style="color:var(--gold-2); font-size:20px;">${keys[suggestedIndex]}</b> đó!"
+    </div>
+    <button class="btn-hero-primary" style="margin:0 auto; padding:10px 28px;" onclick="closeModal();resetAndStartTimer()">
+      Cảm Ơn, Tiếp Tục!
+    </button>
+  `);
 }
 
 function useAudience() {
-  if (!lifelines.audience || locked) return;
-  lifelines.audience = false;
+  if (!availableLifelines.audience || isAnswerLocked) return;
+  soundClick();
+  availableLifelines.audience = false;
   $("ll-audience").classList.add("used");
-  clearInterval(timerId);
-  const item = gameQuestions[currentIndex];
-  const options = [0, 1, 2, 3];
-  /* Khán giả nghiêng về đáp án đúng, câu khó thì phân tán hơn */
-  const base = currentIndex < 5 ? 62 : currentIndex < 10 ? 48 : 38;
-  const pct = [0, 0, 0, 0];
-  pct[item.c] = base + Math.floor(Math.random() * 15);
-  let remain = 100 - pct[item.c];
-  const others = options.filter(i => i !== item.c);
-  others.forEach((i, k) => {
-    if (hiddenAnswers.includes(i)) { pct[i] = 0; return; }
-    if (k === others.length - 1) { pct[i] = remain; }
-    else { const v = Math.floor(Math.random() * remain * 0.7); pct[i] = v; remain -= v; }
+  clearInterval(gameTimerId);
+
+  const qItem = gameQuestions[currentQuestionIndex];
+  const pcts = [0, 0, 0, 0];
+  
+  const correctPct = 55 + Math.floor(Math.random() * 25);
+  pcts[qItem.c] = correctPct;
+  
+  let remaining = 100 - correctPct;
+  const otherIndices = [0, 1, 2, 3].filter(i => i !== qItem.c);
+
+  otherIndices.forEach((idx, k) => {
+    if (hiddenAnswerIndices.includes(idx)) {
+      pcts[idx] = 0;
+    } else if (k === otherIndices.length - 1) {
+      pcts[idx] = remaining;
+    } else {
+      const share = Math.floor(Math.random() * remaining * 0.7);
+      pcts[idx] = share;
+      remaining -= share;
+    }
   });
-  /* nếu 50:50 đã dùng, dồn hết phần các ô ẩn về các ô còn lại */
-  const hiddenSum = others.filter(i => hiddenAnswers.includes(i)).length > 0
-    ? 100 - pct.reduce((s, v) => s + v, 0) : 0;
-  pct[item.c] += hiddenSum;
-  playTone(520, .12); setTimeout(() => playTone(660, .12), 200);
+
+  const keys = ["A", "B", "C", "D"];
   openModal(`
-    <h3>👥 Ý kiến khán giả trường quay</h3>
-    <div class="audience-bars">
-      ${options.map(i => `
-        <div class="abar">
-          <div class="pct" id="pct-${i}">0%</div>
-          <div class="bar" id="bar-${i}"></div>
-          <div class="lbl">${"ABCD"[i]}</div>
-        </div>`).join("")}
+    <div class="modal-title">👥 Ý KIẾN KHÁN GIẢ TRƯỜNG QUAY</div>
+    <div class="audience-chart">
+      ${[0, 1, 2, 3].map(idx => `
+        <div class="bar-group">
+          <div class="bar-pct" id="bar-pct-${idx}">0%</div>
+          <div class="bar-fill" id="bar-fill-${idx}"></div>
+          <div class="bar-label">${keys[idx]}</div>
+        </div>
+      `).join("")}
     </div>
-    <p style="font-size:13px;color:#9fb4e8">(Khán giả đông nhưng... cũng chưa ai qua môn cả 😅)</p>
-    <button class="btn gold" onclick="closeModal();startTimer()">Cảm ơn khán giả!</button>`);
-  setTimeout(() => options.forEach(i => {
-    const bar = $("bar-" + i), lbl = $("pct-" + i);
-    if (bar) { bar.style.height = Math.max(4, pct[i] * 1.4) + "px"; lbl.textContent = pct[i] + "%"; }
-  }), 80);
+    <button class="btn-hero-primary" style="margin:16px auto 0; padding:10px 28px;" onclick="closeModal();resetAndStartTimer()">
+      Cảm Ơn Khán Giả!
+    </button>
+  `);
+
+  setTimeout(() => {
+    [0, 1, 2, 3].forEach(idx => {
+      const fill = $("bar-fill-" + idx);
+      const text = $("bar-pct-" + idx);
+      if (fill && text) {
+        fill.style.height = Math.max(6, pcts[idx] * 1.4) + "px";
+        text.textContent = pcts[idx] + "%";
+      }
+    });
+  }, 100);
 }
 
-/* ===================== END ===================== */
-const PHILO_FACTS = [
-  "💡 Bạn có biết: C.Mác viết luận án tiến sĩ về triết học Êpiquya khi mới 23 tuổi.",
-  "💡 Bạn có biết: Bộ 'Tư bản' tập 2 và 3 do Ph.Ăngghen biên tập và xuất bản sau khi C.Mác qua đời.",
-  "💡 Bạn có biết: Câu 'Vô sản toàn thế giới, đoàn kết lại!' là khẩu hiệu kết thúc Tuyên ngôn của Đảng Cộng sản.",
-  "💡 Bạn có biết: V.I.Lênin thông thạo nhiều ngoại ngữ và đọc Hêghen bằng nguyên bản tiếng Đức.",
-  "💡 Bạn có biết: 'Biện chứng' (dialektike) trong tiếng Hy Lạp cổ nghĩa là nghệ thuật đối thoại, tranh luận.",
-  "💡 Bạn có biết: C.Mác và Ph.Ăngghen là đôi bạn thân và cộng sự trong suốt 40 năm.",
+function useSwitch() {
+  if (!availableLifelines.switch || isAnswerLocked) return;
+  soundClick();
+  availableLifelines.switch = false;
+  $("ll-switch").classList.add("used");
+
+  /* Pick a replacement question from same difficulty level */
+  let pool = QUESTION_BANK.easy;
+  if (currentQuestionIndex >= 10) pool = QUESTION_BANK.hard;
+  else if (currentQuestionIndex >= 5) pool = QUESTION_BANK.medium;
+
+  const currentQText = gameQuestions[currentQuestionIndex].q;
+  const newRawQ = pool.find(item => item.q !== currentQText) ?? pool[0];
+  
+  gameQuestions[currentQuestionIndex] = prepareQuestion(newRawQ);
+
+  $("host-speech-text").textContent = "Bạn đã kích hoạt quyền trợ giúp Đổi Câu Hỏi! Một câu hỏi mới đã xuất hiện.";
+  renderQuestion();
+}
+
+/* =========================================================
+   6. END GAME & FACTS
+   ========================================================= */
+const HISTORICAL_FACTS = [
+  "💡 Tri Tri thức: C.Mác đã dành gần 40 năm miệt mài nghiên cứu tại Thư viện Anh để viết nên bộ 'Tư bản'. Tập I xuất bản năm 1867.",
+  "💡 Tri Tri thức: Bộ 'Tư bản' Tập II (1885) và Tập III (1894) do Ph.Ăngghen tỉ mỉ hiệu đính và xuất bản sau khi C.Mác qua đời.",
+  "💡 Tri Tri thức: Thuật ngữ 'Kinh tế chính trị' xuất hiện lần đầu tiên vào năm 1615 trong tác phẩm của nhà kinh tế Antoine de Montchrestien.",
+  "💡 Tri Tri thức: V.I.Lênin viết tác phẩm 'Chủ nghĩa đế quốc - giai đoạn tột cùng của chủ nghĩa tư bản' vào năm 1916.",
+  "💡 Tri Tri thức: Đường lối Đổi mới toàn diện của Việt Nam được khởi xướng chính thức tại Đại hội VI của Đảng (tháng 12/1986).",
+  "💡 Tri Tri thức: Thời kỳ bao cấp, tem phiếu được dùng để phân phối từng loại hàng hóa như gạo, thịt, vải, chất đốt theo định mức."
 ];
 
 function endGame(result) {
-  clearInterval(timerId);
-  let prize, title, emoji, msg;
+  clearInterval(gameTimerId);
+  let prizeStr = "0";
+  let title = "";
+  let icon = "🎉";
+  let msg = "";
+
   if (result === "win") {
-    prize = PRIZES[14];
-    emoji = "👑"; title = "TRIỆU PHÚ TRI THỨC!";
-    msg = "Không thể tin được! Bạn đã chinh phục cả 15 câu hỏi triết học Mác - Lênin. Một thế giới quan khoa học vững vàng, một phương pháp luận biện chứng sắc bén. Xin chúc mừng nhà TRIỆU PHÚ TRI THỨC!";
-    soundWin(); confetti();
+    prizeStr = PRIZE_SCALE[14];
+    icon = "👑";
+    title = "TRIỆU PHÚ TRI THỨC!";
+    msg = "Xuất sắc tuyệt đối! Bạn đã chinh phục trọn vẹn 15 câu hỏi Kinh tế chính trị Mác - Lênin & Kinh tế Việt Nam. Bạn thực sự là một bậc thầy kiến thức!";
+    soundWinFanfare();
+    launchConfetti();
   } else if (result === "walk") {
-    prize = currentIndex === 0 ? "0" : PRIZES[currentIndex - 1];
-    emoji = "🤝"; title = "Dừng cuộc chơi đúng lúc!";
-    msg = `Biết mình biết ta - một quyết định rất "biện chứng"! Bạn ra về an toàn ở câu số ${currentIndex + 1}. Hẹn gặp lại ở lần chinh phục tiếp theo!`;
-    if (currentIndex > 4) confetti();
+    prizeStr = currentQuestionIndex === 0 ? "0" : PRIZE_SCALE[currentQuestionIndex - 1];
+    icon = "🤝";
+    title = "DỪNG CUỘC CHƠI AN TOÀN!";
+    msg = `Một quyết định rất tỉnh táo và biện chứng! Bạn dừng bước tại Câu ${currentQuestionIndex + 1} và mang về giải thưởng ${prizeStr} đ.`;
+    if (currentQuestionIndex > 4) launchConfetti();
   } else {
-    /* rơi về mốc an toàn */
-    let safe = "0";
-    for (const m of MILESTONES) if (currentIndex > m) safe = PRIZES[m];
-    prize = safe;
-    emoji = currentIndex > 4 ? "💪" : "🌱";
-    title = "Cuộc chơi kết thúc!";
-    msg = currentIndex > 9
-      ? `Tiếc quá, bạn dừng bước ở câu ${currentIndex + 1} - đã rất gần đỉnh vinh quang! Về ôn thêm chút nữa là vô địch.`
-      : currentIndex > 4
-        ? `Bạn dừng bước ở câu ${currentIndex + 1} và rơi về mốc an toàn. Kết quả rất khá rồi, cày thêm giáo trình chút nữa nhé!`
-        : `Bạn dừng bước ở câu ${currentIndex + 1}. Đừng buồn - "thực tiễn là tiêu chuẩn của chân lý", chơi lại vài lần là kiến thức sẽ vững ngay!`;
+    /* Safe Milestone Fallback */
+    let safeAmount = "0";
+    for (const m of SAFE_MILESTONES) {
+      if (currentQuestionIndex > m) safeAmount = PRIZE_SCALE[m];
+    }
+    prizeStr = safeAmount;
+    icon = currentQuestionIndex > 4 ? "💪" : "🌱";
+    title = "RẤT TIẾC, CUỘC CHƠI KẾT THÚC!";
+    msg = currentQuestionIndex > 9
+      ? `Bạn đã tiến rất sâu đến Câu ${currentQuestionIndex + 1}! Rơi về mốc an toàn 22.000.000đ.`
+      : currentQuestionIndex > 4
+        ? `Bạn dừng chân ở Câu ${currentQuestionIndex + 1} và bảo toàn mốc an toàn 2.000.000đ.`
+        : `Cuộc chơi dừng lại ở Câu ${currentQuestionIndex + 1}. Đừng buồn, hãy đọc lại Sổ Tay Kiến Thức và thử lại nhé!`;
   }
-  $("end-emoji").textContent = emoji;
-  $("end-title").textContent = title;
-  $("end-prize").innerHTML = `💰 ${prize} đ`;
-  $("end-msg").textContent = msg;
-  $("end-fact").textContent = PHILO_FACTS[Math.floor(Math.random() * PHILO_FACTS.length)];
+
+  $("end-emoji-icon").textContent = icon;
+  $("end-title-text").textContent = title;
+  $("end-prize-text").textContent = `${prizeStr} đ`;
+  $("end-message-text").textContent = msg;
+  $("end-fact-text").textContent = HISTORICAL_FACTS[Math.floor(Math.random() * HISTORICAL_FACTS.length)];
+
   showScreen("screen-end");
 }
 
-function confetti() {
+function launchConfetti() {
   const icons = ["🎉", "✨", "💎", "🏆", "⭐", "🎊"];
-  for (let i = 0; i < 40; i++) {
+  for (let i = 0; i < 45; i++) {
     const el = document.createElement("div");
-    el.className = "confetti";
+    el.className = "confetti-piece";
     el.textContent = icons[Math.floor(Math.random() * icons.length)];
     el.style.left = Math.random() * 100 + "vw";
     el.style.animationDuration = 2.5 + Math.random() * 3 + "s";
@@ -813,12 +2303,17 @@ function confetti() {
   }
 }
 
-/* ===================== MODAL ===================== */
-function openModal(html) {
-  $("modal-content").innerHTML = html;
-  $("modal").classList.add("show");
+/* =========================================================
+   7. MODALS
+   ========================================================= */
+function openModal(htmlContent) {
+  $("app-modal-card").innerHTML = htmlContent;
+  $("app-modal-overlay").classList.add("show");
 }
-function closeModal() { $("modal").classList.remove("show"); }
+function closeModal() {
+  $("app-modal-overlay").classList.remove("show");
+}
+
 </script>
 </body>
 </html>
