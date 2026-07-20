@@ -2181,6 +2181,22 @@ function toggleSound() {
 /* Helper DOM selector */
 const $ = id => document.getElementById(id);
 
+function openModal(html) {
+  const card = $("app-modal-card");
+  const overlay = $("app-modal-overlay");
+  if (card && overlay) {
+    card.innerHTML = html;
+    overlay.classList.add("show");
+  }
+}
+
+function closeModal() {
+  const overlay = $("app-modal-overlay");
+  if (overlay) {
+    overlay.classList.remove("show");
+  }
+}
+
 function showScreen(screenId) {
   document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
   const target = $(screenId);
@@ -2523,9 +2539,14 @@ function handleWrongAnswer(qItem) {
       <div class="takeaway-header">💡 Giải Thích Tri Thức:</div>
       <div style="color:var(--slate-300); font-size:14.5px; line-height:1.6;">${qItem.e}</div>
     </div>
-    <button class="btn-hero-secondary" style="margin:0 auto; padding:12px 32px;" onclick="closeModal();endGame('lose')">
-      Xem Tổng Kết
-    </button>
+    <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:20px;">
+      <button class="btn-hero-primary" style="padding:10px 24px; font-size:15px;" onclick="closeModal();startGame()">
+        🎮 Chơi Tiếp Ván Mới
+      </button>
+      <button class="btn-hero-secondary" style="padding:10px 24px; font-size:15px;" onclick="closeModal();endGame('lose')">
+        🏁 Kết Thúc & Nhận Giải
+      </button>
+    </div>
   `);
 }
 
@@ -2547,9 +2568,14 @@ function handleTimeOut() {
       <div class="takeaway-header">💡 Giải Thích Tri Thức:</div>
       <div style="color:var(--slate-300); font-size:14.5px; line-height:1.6;">${qItem.e}</div>
     </div>
-    <button class="btn-hero-secondary" style="margin:0 auto; padding:12px 32px;" onclick="closeModal();endGame('lose')">
-      Xem Tổng Kết
-    </button>
+    <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:20px;">
+      <button class="btn-hero-primary" style="padding:10px 24px; font-size:15px;" onclick="closeModal();startGame()">
+        🎮 Chơi Tiếp Ván Mới
+      </button>
+      <button class="btn-hero-secondary" style="padding:10px 24px; font-size:15px;" onclick="closeModal();endGame('lose')">
+        🏁 Kết Thúc & Nhận Giải
+      </button>
+    </div>
   `);
 }
 
@@ -2735,16 +2761,17 @@ function endGame(result) {
   if (result === "win") {
     prizeStr = PRIZE_SCALE[14];
     icon = "👑";
-    title = "TRIỆU PHÚ TRI THỨC!";
+    title = "🏆 CHÚC MỪNG TRIỆU PHÚ TRI THỨC!";
     msg = "Xuất sắc tuyệt đối! Bạn đã chinh phục trọn vẹn 15 câu hỏi Kinh tế chính trị Mác - Lênin & Kinh tế Việt Nam. Bạn thực sự là một bậc thầy kiến thức!";
     soundWinFanfare();
     launchConfetti();
   } else if (result === "walk") {
     prizeStr = currentQuestionIndex === 0 ? "0" : PRIZE_SCALE[currentQuestionIndex - 1];
-    icon = "🤝";
-    title = "DỪNG CUỘC CHƠI AN TOÀN!";
-    msg = `Một quyết định rất tỉnh táo và biện chứng! Bạn dừng bước tại Câu ${currentQuestionIndex + 1} và mang về giải thưởng ${prizeStr} đ.`;
-    if (currentQuestionIndex > 4) launchConfetti();
+    icon = "👏";
+    title = "🎉 CHÚC MỪNG BẠN ĐÃ BẢO TOÀN GIẢI THƯỞNG!";
+    msg = `Một quyết định rất tỉnh táo và thông minh! Bạn dừng bước ở Câu ${currentQuestionIndex + 1} và xuất sắc mang về giải thưởng ${prizeStr} đ. Chúc mừng bạn!`;
+    soundWinFanfare();
+    launchConfetti();
   } else {
     /* Safe Milestone Fallback */
     let safeAmount = "0";
@@ -2752,13 +2779,15 @@ function endGame(result) {
       if (currentQuestionIndex > m) safeAmount = PRIZE_SCALE[m];
     }
     prizeStr = safeAmount;
-    icon = currentQuestionIndex > 4 ? "💪" : "🌱";
-    title = "RẤT TIẾC, CUỘC CHƠI KẾT THÚC!";
+    icon = "🎉";
+    title = "🎉 CHÚC MỪNG BẠN ĐÃ HOÀN THÀNH LƯỢT CHƠI!";
     msg = currentQuestionIndex > 9
-      ? `Bạn đã tiến rất sâu đến Câu ${currentQuestionIndex + 1}! Rơi về mốc an toàn 22.000.000đ.`
+      ? `Chúc mừng bạn đã nỗ lực tuyệt vời, vượt qua 10 câu hỏi thử thách và đạt giải thưởng ${safeAmount} đ! Nỗ lực của bạn rất đáng tự hào!`
       : currentQuestionIndex > 4
-        ? `Bạn dừng chân ở Câu ${currentQuestionIndex + 1} và bảo toàn mốc an toàn 2.000.000đ.`
-        : `Cuộc chơi dừng lại ở Câu ${currentQuestionIndex + 1}. Đừng buồn, hãy đọc lại Sổ Tay Kiến Thức và thử lại nhé!`;
+        ? `Chúc mừng bạn đã xuất sắc vượt qua mốc an toàn đầu tiên và mang về giải thưởng ${safeAmount} đ!`
+        : `Chúc mừng bạn đã hoàn thành lượt thử thách kiến thức MLN122 với ${currentQuestionIndex} câu trả lời đúng! Hãy tiếp tục ôn tập Sổ Tay Kiến Thức để bứt phá hơn nhé!`;
+    soundWinFanfare();
+    launchConfetti();
   }
 
   $("end-emoji-icon").textContent = icon;
